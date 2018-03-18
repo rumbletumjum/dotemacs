@@ -125,6 +125,7 @@
   :diminish ivy-mode
   :config
   (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
   (ivy-mode 1))
 
 (use-package swiper
