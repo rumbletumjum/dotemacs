@@ -20,6 +20,10 @@
 			   ("melpa" . "~/elpa-mirror/melpa/")
 			   ("org" . "~/elpa-mirror/org/")))
 
+  (setq package-archive-priorities '(("org" . 3)
+                                     ("melpa" . 2)
+                                     ("gnu" . 1)))
+
   (setq package-enable-at-startup nil)
   (package-initialize))
 
@@ -86,6 +90,8 @@
   (when (fboundp mode)
     (funcall mode -1)))
 
+(setq ring-bell-function 'ignore)
+
 (defun windows/split-window-below-and-focus ()
   (interactive)
   (split-window-below)
@@ -113,9 +119,6 @@
 	recentf-max-menu-items 15
 	recentf-auto-cleanup 'never)
   (recentf-mode))
-
-(use-package org
-  :ensure t)
 
 (use-package ivy
   :ensure t
@@ -147,10 +150,15 @@
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 
+(require 'rtj-clojure)
+(require 'rtj-fns)
+
+(global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
+(global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
+
 (use-package rainbow-delimiters
   :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode))
+  :hook (((prog-mode cider-repl-mode) . rainbow-delimiters-mode)))
 
 (use-package which-key
   :ensure t
@@ -178,3 +186,4 @@
          "* %:description\n%u\n\n"
          :empty-lines 1)))
 
+(load-theme 'challenger-deep t)

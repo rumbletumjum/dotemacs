@@ -3,19 +3,11 @@
   (mapcar #'disable-theme custom-enabled-themes)
   (load-theme theme-name t))
 
-(use-package solarized-theme
-  :ensure t
-  :defer t)
-
-(use-package zerodark-theme
+(use-package challenger-deep-theme
   :ensure t
   :defer t)
 
 (use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :defer t)
-
-(use-package challenger-deep-theme
   :ensure t
   :defer t)
 
@@ -27,7 +19,23 @@
   :ensure t
   :defer t)
 
+(use-package doom-themes
+  :ensure t
+  :defer t)
+
 (use-package gruvbox-theme
+  :ensure t
+  :defer t)
+
+(use-package leuven-theme
+  :ensure t
+  :defer t)
+
+(use-package solarized-theme
+  :ensure t
+  :defer t)
+
+(use-package zerodark-theme
   :ensure t
   :defer t)
 
