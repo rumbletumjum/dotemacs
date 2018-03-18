@@ -52,7 +52,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (epkg clojure-mode-extra-font-locking powerline org-plus-contrib gruvbox-theme darktooth-theme challenger-deep-theme chalenger-deep-theme color-theme-sanityinc-tomorrow solarized-theme emacs-color-theme-solarized expand-region clojure-mode zerodark-theme creamsody-theme counsel swiper ivy exec-path-from-shell exec-shell-from-path ranger doom-themes diminish nord-theme leuven-theme plan9-theme osx-trash which-key rainbow-delimiters use-package)))
+    (clojure-mode-extra-font-locking powerline org-plus-contrib gruvbox-theme darktooth-theme challenger-deep-theme chalenger-deep-theme color-theme-sanityinc-tomorrow solarized-theme emacs-color-theme-solarized expand-region clojure-mode zerodark-theme creamsody-theme counsel swiper ivy exec-path-from-shell exec-shell-from-path ranger doom-themes diminish nord-theme leuven-theme plan9-theme osx-trash which-key rainbow-delimiters use-package)))
  '(pos-tip-background-color "#1A3734")
  '(pos-tip-foreground-color "#FFFFC8")
  '(recentf-mode t)
