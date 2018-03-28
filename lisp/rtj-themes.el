@@ -21,13 +21,24 @@
 
 (use-package doom-themes
   :ensure t
-  :defer t)
+  :defer t
+  ;; :custom-face
+  ;; (org-level-1 ((t (:slant italic)))))
+  )
 
 (use-package gruvbox-theme
   :ensure t
   :defer t)
 
+(use-package kaolin-themes
+  :ensure t
+  :defer t)
+
 (use-package leuven-theme
+  :ensure t
+  :defer t)
+
+(use-package rebecca-theme
   :ensure t
   :defer t)
 
@@ -36,6 +47,10 @@
   :defer t)
 
 (use-package zerodark-theme
+  :ensure t
+  :defer t)
+
+(use-package graphene-meta-theme
   :ensure t
   :defer t)
 

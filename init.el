@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Iosevka Term 14")
+(set-face-attribute 'default nil :font "Iosevka Slab 14" :weight 'light)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -43,6 +43,7 @@
 (rtj/bootstrap-use-package)
 
 (require 'rtj-themes)
+(require 'rtj-ui)
 
 (defun defaults/shorten-yes-or-no ()
   "Don't ask `yes/no?', ask `y/n?'"
@@ -80,10 +81,13 @@
   (interactive)
   (mapcar #'disable-theme custom-enabled-themes ))
 
-(global-set-key (kbd "C-o") 'open-next-line)
-(global-set-key (kbd "M-o") 'open-previous-line)
+;; (global-set-key (kbd "C-o") 'open-next-line)
+;; (global-set-key (kbd "M-o") 'open-previous-line)
 (global-set-key (kbd "C-c SPC") 'which-key-show-top-level)
 (global-set-key (kbd "C-x k") 'kill-default-buffer)
+
+;; (require 'dired+)
+(setq dired-dwim-target t)
 
 
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
@@ -126,7 +130,20 @@
   :config
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
-  (ivy-mode 1))
+  (setq ivy-re-builders-alist
+        '((swiper . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
+  (setq ivy-initial-inputs-alist nil)
+  (ivy-mode))
+
+(use-package flx
+  :ensure t)
+
+(use-package hydra
+  :ensure t)
+
+(use-package ivy-hydra
+  :ensure t)
 
 (use-package swiper
   :ensure t
@@ -134,16 +151,21 @@
   (global-set-key (kbd "C-s") 'swiper))
 
 (use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-h f" . counsel-describe-function)
-         ("C-c t" . counsel-load-theme)
-         ("C-h a" . counsel-apropos))
+  ;; :bind (("M-x" . counsel-M-x)
+  ;;        ("C-h f" . counsel-describe-function)
+  :bind (("C-c t" . counsel-load-theme)
+         ("M-x" . counsel-M-x)
+         ("C-h a" . counsel-apropos)
+         ("C-x C-b". counsel-ibuffer))
   :ensure t
+  :diminish counsel-mode
   :config
-  (global-set-key (kbd "C-h v") 'counsel-describe-variable)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
-  (global-set-key (kbd "C-x C-r") 'counsel-recentf))
+  ;; (global-set-key (kbd "C-h v") 'counsel-describe-variable)
+  ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+  (counsel-mode)
+  )
+
 
 (use-package exec-path-from-shell
   :ensure t
@@ -156,6 +178,7 @@
 
 (global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
 (global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (use-package rainbow-delimiters
   :ensure t
@@ -181,10 +204,25 @@
   :bind (("C-=" . er/expand-region))
   :ensure t)
 
+(use-package golden-ratio
+  :ensure t
+  :diminish golden-ratio-mode
+  :config
+  (setq golden-ratio-auto-scale t)
+  (golden-ratio-mode))
+
 (setq org-capture-templates
       '(("l" "A link, for reading later." entry
          (file+headline "notes.org" "Reading List")
-         "* %:description\n%u\n\n"
+         "** %:description\n%:link\n%u"
          :empty-lines 1)))
 
-(load-theme 'challenger-deep t)
+(require 'org-protocol)
+
+;; (use-package spaceline
+;;   :ensure t
+;;   :config
+;;   (require 'spaceline-config)
+;;   (spaceline-emacs-theme))
+
+(load-theme 'doom-solarized-light t)
