@@ -234,3 +234,13 @@
 ;;   (spaceline-emacs-theme))
 
 (load-theme 'doom-solarized-light t)
+
+(global-set-key
+ (kbd "C-M-o")
+ (defhydra hydra-window ()
+   "window"
+   ("h" windmove-left "left")
+   ("j" windmove-down)
+   ("k" windmove-up)
+   ("l" windmove-right)
+   ("a" ace-window)))
