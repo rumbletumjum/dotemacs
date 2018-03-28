@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Iosevka Slab 14" :weight 'light)
+(set-face-attribute 'default nil :font "Iosevka Slab 18")
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -163,9 +163,17 @@
   ;; (global-set-key (kbd "C-h v") 'counsel-describe-variable)
   ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-  (counsel-mode)
-  )
+  (counsel-mode))
 
+(use-package avy
+  :ensure t
+  :bind (("C-;" . avy-goto-char-timer)))
+
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window))
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package exec-path-from-shell
   :ensure t
