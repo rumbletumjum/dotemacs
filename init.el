@@ -83,8 +83,9 @@
 
 ;; (global-set-key (kbd "C-o") 'open-next-line)
 ;; (global-set-key (kbd "M-o") 'open-previous-line)
-(global-set-key (kbd "C-c SPC") 'which-key-show-top-level)
+(global-set-key (kbd "C-h SPC") 'which-key-show-top-level)
 (global-set-key (kbd "C-x k") 'kill-default-buffer)
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; (require 'dired+)
 (setq dired-dwim-target t)
@@ -156,7 +157,10 @@
   :bind (("C-c t" . counsel-load-theme)
          ("M-x" . counsel-M-x)
          ("C-h a" . counsel-apropos)
-         ("C-x C-b". counsel-ibuffer))
+         ("C-x C-b". counsel-ibuffer)
+         ("M-y" . counsel-yank-pop)
+         :map ivy-minibuffer-map
+         ("M-y" . ivy-next-line))
   :ensure t
   :diminish counsel-mode
   :config
@@ -173,6 +177,7 @@
   :ensure t
   :bind (("M-o" . ace-window))
   :config
+  (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package exec-path-from-shell
@@ -233,7 +238,7 @@
 ;;   (require 'spaceline-config)
 ;;   (spaceline-emacs-theme))
 
-(load-theme 'doom-solarized-light t)
+(load-theme 'doom-city-lights t)
 
 (global-set-key
  (kbd "C-M-o")
@@ -244,3 +249,12 @@
    ("k" windmove-up)
    ("l" windmove-right)
    ("a" ace-window)))
+
+(defhydra hydra-window-two (:color blue)
+  "window2"
+  ("h" windmove-left "left")
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right))
+
+(global-set-key (kbd "M-i") 'hydra-window-two/body)
