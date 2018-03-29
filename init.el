@@ -12,13 +12,13 @@
 
 (defun rtj/package-init ()
   "Set package archives and initialize package system."
-  ;; (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-  ;; 			   ("melpa" . "https://melpa.org/packages/")
-  ;; 			   ("org" . "https://orgmode.org/elpa/")))
+  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+  			   ("melpa" . "https://melpa.org/packages/")
+  			   ("org" . "https://orgmode.org/elpa/")))
 
-  (setq package-archives '(("gnu" . "~/elpa-mirror/gnu/")
-			   ("melpa" . "~/elpa-mirror/melpa/")
-			   ("org" . "~/elpa-mirror/org/")))
+  ;; (setq package-archives '(("gnu" . "~/elpa-mirror/gnu/")
+  ;;       		   ("melpa" . "~/elpa-mirror/melpa/")
+  ;;       		   ("org" . "~/elpa-mirror/org/")))
 
   (setq package-archive-priorities '(("org" . 3)
                                      ("melpa" . 2)
@@ -258,3 +258,15 @@
   ("l" windmove-right))
 
 (global-set-key (kbd "M-i") 'hydra-window-two/body)
+
+(use-package pdf-tools
+ :pin manual ;; manually update
+ :config
+ ;; initialise
+ (pdf-tools-install)
+ ;; open pdfs scaled to fit page
+ (setq-default pdf-view-display-size 'fit-page)
+ ;; automatically annotate highlights
+ (setq pdf-annot-activate-created-annotations t)
+ ;; use normal isearch
+ (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
