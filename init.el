@@ -224,6 +224,11 @@
   (setq golden-ratio-auto-scale t)
   (golden-ratio-mode))
 
+(use-package org-bullets
+  :ensure t
+  :commands (org-bullets-mode)
+  :hook (org-mode . org-bullets-mode))
+
 (setq org-capture-templates
       '(("l" "A link, for reading later." entry
          (file+headline "notes.org" "Reading List")
@@ -253,9 +258,9 @@
 (defhydra hydra-window-two (:color blue)
   "window2"
   ("h" windmove-left "left")
-  ("j" windmove-down)
-  ("k" windmove-up)
-  ("l" windmove-right))
+  ("j" windmove-down "down")
+  ("k" windmove-up "up")
+  ("l" windmove-right "right"))
 
 (global-set-key (kbd "M-i") 'hydra-window-two/body)
 
@@ -270,3 +275,11 @@
  (setq pdf-annot-activate-created-annotations t)
  ;; use normal isearch
  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+
+(use-package markdown-mode
+  :ensure t
+  :config
+  (setq markdown-asymmetric-header t)
+  (setq markdown-header-scaling t))
+
+(setq explicit-shell-file-name "/usr/local/bin/zsh")
