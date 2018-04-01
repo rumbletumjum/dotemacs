@@ -294,4 +294,4 @@
   (setq markdown-header-scaling t))
 
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
-(put 'dired-find-alternate-file 'disabled nil)
+;; (put 'dired-find-alternate-file 'disabled nil)
