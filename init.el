@@ -2,7 +2,9 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Iosevka Slab 18")
+(set-face-attribute 'default nil :font "Inconsolata 16")
+
+(setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -42,12 +44,18 @@
 (rtj/package-init)
 (rtj/bootstrap-use-package)
 
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
 (require 'rtj-themes)
 (require 'rtj-ui)
 
 (defun defaults/shorten-yes-or-no ()
   "Don't ask `yes/no?', ask `y/n?'"
-  (fset 'yes-or-no-p 'y-or-n-p))
+  (defalias 'yes-or-no-p 'y-or-n-p))
 
 (defaults/shorten-yes-or-no)
 
@@ -89,7 +97,10 @@
 
 ;; (require 'dired+)
 (setq dired-dwim-target t)
-
+(setq dired-ls-F-marks-symlinks t)
+(setq dired-listing-switches "-alh")
+(setq ibuffer-saved-filter-groups
+      '(("dired" (mode . dired-mode))))
 
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode)
@@ -178,7 +189,8 @@
   :bind (("M-o" . ace-window))
   :config
   (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (global-unset-key (kbd "C-x o"))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -188,6 +200,7 @@
 
 (require 'rtj-clojure)
 (require 'rtj-fns)
+(require 'rtj-lisp)
 
 (global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
 (global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
@@ -217,6 +230,9 @@
   :bind (("C-=" . er/expand-region))
   :ensure t)
 
+(use-package multiple-cursors
+  :ensure t)
+
 (use-package golden-ratio
   :ensure t
   :diminish golden-ratio-mode
@@ -243,7 +259,7 @@
 ;;   (require 'spaceline-config)
 ;;   (spaceline-emacs-theme))
 
-(load-theme 'doom-city-lights t)
+(load-theme 'doom-vibrant t)
 
 (global-set-key
  (kbd "C-M-o")
@@ -265,16 +281,17 @@
 (global-set-key (kbd "M-i") 'hydra-window-two/body)
 
 (use-package pdf-tools
- :pin manual ;; manually update
- :config
- ;; initialise
- (pdf-tools-install)
- ;; open pdfs scaled to fit page
- (setq-default pdf-view-display-size 'fit-page)
- ;; automatically annotate highlights
- (setq pdf-annot-activate-created-annotations t)
- ;; use normal isearch
- (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+  :pin manual ;; manually update
+  :defer t
+  :config
+  ;; initialise
+  (pdf-tools-install)
+  ;; open pdfs scaled to fit page
+  (setq-default pdf-view-display-size 'fit-page)
+  ;; automatically annotate highlights
+  (setq pdf-annot-activate-created-annotations t)
+  ;; use normal isearch
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
 (use-package markdown-mode
   :ensure t
@@ -283,3 +300,4 @@
   (setq markdown-header-scaling t))
 
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
+(put 'dired-find-alternate-file 'disabled nil)
