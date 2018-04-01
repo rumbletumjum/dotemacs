@@ -184,7 +184,7 @@
   :config
   (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (global-unset-key (kbd "C-x o"))
+  (global-unset-key (kbd "C-x o")))
 
 (use-package exec-path-from-shell
   :ensure t
