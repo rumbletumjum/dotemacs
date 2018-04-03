@@ -92,7 +92,7 @@
 ;; (require 'dired+)
 (setq dired-dwim-target t)
 (setq dired-ls-F-marks-symlinks t)
-(setq dired-listing-switches "-alh")
+(setq dired-listing-switches "-alh --group-directories-first")
 (setq ibuffer-saved-filter-groups
       '(("dired" (mode . dired-mode))))
 
@@ -195,6 +195,7 @@
 (require 'rtj-clojure)
 (require 'rtj-fns)
 (require 'rtj-lisp)
+(require 'rtj-racket)
 
 (global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
 (global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
@@ -253,7 +254,7 @@
 ;;   (require 'spaceline-config)
 ;;   (spaceline-emacs-theme))
 
-(load-theme 'doom-vibrant t)
+(load-theme 'doom-solarized-light t)
 
 (global-set-key
  (kbd "C-M-o")
