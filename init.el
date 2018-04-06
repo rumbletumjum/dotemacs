@@ -93,9 +93,26 @@
 (setq dired-dwim-target t)
 (setq dired-ls-F-marks-symlinks t)
 (setq dired-listing-switches "-alh --group-directories-first")
-(setq ibuffer-saved-filter-groups
-      '(("dired" (mode . dired-mode))))
 
+;; (use-package ibuffer
+;;   :commands ibuffer
+;;   :bind ("C-x C-b" . ibuffer)
+;;   :config (progn
+;;             (use-package ibuf-ext)
+;;             (add-hook 'ibuffer-mode-hook
+;;                       (lambda ()
+;;                         (local-set-key (kbd "r" 'ibuffer-update))))))
+
+(defun my-ibuffer-stale-p (&optional noconfirm)
+  (frame-or-buffer-changed-p 'ibuffer-auto-buffers-changed))
+
+(defun my-ibuffer-auto-revert-setup ()
+  (setq-local buffer-stale-function 'my-ibuffer-stale-p)
+  (setq-local auto-revert-verbose nil)
+  (auto-revert-mode 1))
+
+
+    
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode)
     (funcall mode -1)))
@@ -197,6 +214,15 @@
 (require 'rtj-lisp)
 (require 'rtj-racket)
 
+(use-package smartparens
+  :ensure t
+  :config
+  (require 'smartparens-config)
+  (setq sp-base-key-bindings 'paredit)
+  (setq sp-autoskip-closing-pair 'always)
+  (setq sp-hybrid-kill-entire-symbol nil)
+  (sp-use-paredit-bindings))
+
 (global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
 (global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -296,3 +322,39 @@
 
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
 ;; (put 'dired-find-alternate-file 'disabled nil)
+
+(use-package ibuffer
+  :commands ibuffer
+  :bind ("C-x C-b" . ibuffer)
+  :config (progn
+            (use-package ibuf-ext)
+            ;; ibuffer, I like my buffers to be grouped
+            (add-hook 'ibuffer-mode-hook
+                      (lambda ()
+                        (my-ibuffer-auto-revert-setup)
+                        (local-set-key (kbd "r") 'ibuffer-update)
+                        (ibuffer-switch-to-saved-filter-groups
+                         "default")))
+            (setq ibuffer-saved-filter-groups
+                  (quote (("default"
+                           ("dired" (mode . dired-mode))
+                           ("org" (mode . org-mode))
+                           ("perl" (mode . cperl-mode))
+                           ("erc" (mode . erc-mode))
+                           ("planner" (or
+                                       (name . "^\\*Calendar\\*$")
+                                       (name . "^diary$")
+                                       (mode . muse-mode)))
+                           ("emacs" (or
+                                     (name . "^\\*scratch\\*$")
+                                     (name . "^\\*Messages\\*$")))
+                           ("gnus" (or
+                                    (mode . message-mode)
+                                    (mode . bbdb-mode)
+                                    (mode . mail-mode)
+                                    (mode . gnus-group-mode)
+                                    (mode . gnus-summary-mode)
+                                    (mode . gnus-article-mode)
+                                    (name . "^\\.bbdb$")
+                                    (name . "^\\.newsrc-dribble")))))))
+            ))
