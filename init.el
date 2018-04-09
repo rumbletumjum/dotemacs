@@ -111,8 +111,6 @@
   (setq-local auto-revert-verbose nil)
   (auto-revert-mode 1))
 
-
-    
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode)
     (funcall mode -1)))
@@ -130,7 +128,7 @@
 (defun windows/split-window-right-and-focus ()
   (interactive)
   (split-window-right)
-  (windmove-down)
+  (windmove-right)
   (when (and (boundp 'golden-ratio-mode)
 	     (symbol-value golden-ratio-mode))
     (golden-ratio)))
@@ -146,6 +144,9 @@
 	recentf-max-menu-items 15
 	recentf-auto-cleanup 'never)
   (recentf-mode))
+
+(use-package smex
+  :ensure t)
 
 (use-package ivy
   :ensure t
@@ -200,6 +201,7 @@
   :bind (("M-o" . ace-window))
   :config
   (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
+  (setq aw-dispatch-always t)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (global-unset-key (kbd "C-x o")))
 
@@ -264,6 +266,9 @@
 (use-package org-bullets
   :ensure t
   :commands (org-bullets-mode)
+  :init
+  (setq org-bullets-bullet-list
+        '("◉" "◎" "○" "●" "◇"))
   :hook (org-mode . org-bullets-mode))
 
 (setq org-capture-templates
@@ -280,7 +285,7 @@
 ;;   (require 'spaceline-config)
 ;;   (spaceline-emacs-theme))
 
-(load-theme 'doom-solarized-light t)
+;; (load-theme 'doom-solarized-light t)
 
 (global-set-key
  (kbd "C-M-o")
@@ -339,22 +344,50 @@
                   (quote (("default"
                            ("dired" (mode . dired-mode))
                            ("org" (mode . org-mode))
-                           ("perl" (mode . cperl-mode))
-                           ("erc" (mode . erc-mode))
-                           ("planner" (or
-                                       (name . "^\\*Calendar\\*$")
-                                       (name . "^diary$")
-                                       (mode . muse-mode)))
                            ("emacs" (or
                                      (name . "^\\*scratch\\*$")
-                                     (name . "^\\*Messages\\*$")))
-                           ("gnus" (or
-                                    (mode . message-mode)
-                                    (mode . bbdb-mode)
-                                    (mode . mail-mode)
-                                    (mode . gnus-group-mode)
-                                    (mode . gnus-summary-mode)
-                                    (mode . gnus-article-mode)
-                                    (name . "^\\.bbdb$")
-                                    (name . "^\\.newsrc-dribble")))))))
-            ))
+                                     (name . "^\\*Messages\\*$")))))))))
+
+(defun close-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+                                    
+;; (use-package helm
+;;   :ensure t
+;;   :bind ("M-x" . 'helm-M-x)
+;;   :config
+;;   (setq helm-M-x-fuzzy-match t
+;;         helm-split-window-in-side-p t))
+
+;; (defun window-thing (arg)
+;;   (interactive "p")
+;;   (cond
+;;    ((= 1 (count-windows))
+;;     (windows/split-window-right-and-focus))
+;;    ((= 2 (count-windows))
+;;     (if ))
+;;    (t (ace-window 1))))
+
+(defun window-thing (arg)
+  (interactive "p")
+  (cond
+   ((= 1 (count-windows))
+    (progn
+      (split-window-right)
+      (windmove-right)))
+   ((= 2 (count-windows))
+    (if (= arg 4)
+        (progn
+          (other-window 1)
+          (delete-window))
+      (other-window 1)))
+   ((= 3 (count-windows))
+    (if (= arg 4)
+        (delete-other-windows))
+    (ace-window 1))))
+
+(defun arg-test (arg)
+  (interactive "p")
+  (message "%s" arg))
+
+(global-set-key (kbd "M-o") 'window-thing)
