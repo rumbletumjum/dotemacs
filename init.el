@@ -36,12 +36,14 @@
     (package-install 'use-package))
 
   (eval-when-compile
+    (setq use-package-verbose 'debug)
     (require 'use-package))
 
   (use-package diminish
     :ensure t))
 
 (rtj/package-init)
+(setq use-package-verbose 'debug)
 (rtj/bootstrap-use-package)
 
 (require 'rtj-themes)
@@ -163,8 +165,8 @@
 (use-package flx
   :ensure t)
 
-(use-package hydra
-  :ensure t)
+;; (use-package hydra
+;;   :ensure t)
 
 (use-package ivy-hydra
   :ensure t)
@@ -191,6 +193,7 @@
   ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (counsel-mode))
+
 
 (use-package avy
   :ensure t
