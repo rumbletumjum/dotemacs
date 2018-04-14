@@ -347,6 +347,7 @@
                   (quote (("default"
                            ("dired" (mode . dired-mode))
                            ("org" (mode . org-mode))
+                           ("magit" (name . "\*magit"))
                            ("emacs" (or
                                      (name . "^\\*scratch\\*$")
                                      (name . "^\\*Messages\\*$")))))))))
