@@ -329,7 +329,6 @@
   (setq markdown-header-scaling t))
 
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
-;; (put 'dired-find-alternate-file 'disabled nil)
 
 (use-package ibuffer
   :commands ibuffer
@@ -395,3 +394,4 @@
   (message "%s" arg))
 
 (global-set-key (kbd "M-o") 'window-thing)
+(put 'dired-find-alternate-file 'disabled nil)
