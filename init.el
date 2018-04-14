@@ -165,8 +165,8 @@
 (use-package flx
   :ensure t)
 
-;; (use-package hydra
-;;   :ensure t)
+(use-package hydra
+  :ensure t)
 
 (use-package ivy-hydra
   :ensure t)
