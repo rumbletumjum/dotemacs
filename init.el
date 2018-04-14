@@ -263,7 +263,6 @@
   :ensure t
   :diminish golden-ratio-mode
   :config
-  (setq golden-ratio-auto-scale t)
   (golden-ratio-mode))
 
 (use-package org-bullets
