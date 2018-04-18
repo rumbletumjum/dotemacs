@@ -7,4 +7,7 @@
           (clisp ("clisp"))))
   (setq slime-contribs '(slime-fancy)))
 
+(use-package racket-mode
+  :ensure t)
+
 (provide 'rtj-lisp)

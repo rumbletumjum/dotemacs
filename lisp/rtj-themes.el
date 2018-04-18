@@ -7,7 +7,7 @@
 (use-package color-theme-sanityinc-tomorrow :ensure t :defer t)
 (use-package creamsody-theme  :ensure t :defer t)
 (use-package darktooth-theme  :ensure t :defer t)
-(use-package doom-themes :ensure t :defer t ;; :custom-face ;; (org-level-1 ((t (:slant italic))))))
+(use-package doom-themes :ensure t :defer t) ;; :custom-face ;; (org-level-1 ((t (:slant italic))))))
 (use-package graphene-meta-theme :ensure t :defer t)
 (use-package gruvbox-theme :ensure t :defer t)
 (use-package kaolin-themes :ensure t :defer t)
