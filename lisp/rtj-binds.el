@@ -11,3 +11,5 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-i") 'hydra-window-two/body)
 (global-set-key (kbd "M-o") 'window-thing)
+
+(provide 'rtj-binds)

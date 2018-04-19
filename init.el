@@ -46,6 +46,7 @@
 (setq use-package-verbose 'debug)
 (rtj/bootstrap-use-package)
 
+(require 'rtj-fns)
 (require 'rtj-themes)
 (require 'rtj-ui)
 
@@ -161,7 +162,6 @@
   (exec-path-from-shell-initialize))
 
 (require 'rtj-clojure)
-(require 'rtj-fns)
 (require 'rtj-lisp)
 (require 'rtj-racket)
 
@@ -292,8 +292,8 @@
                                      (name . "^\\*scratch\\*$")
                                      (name . "^\\*Messages\\*$")))))))))
 
-(require 'rtj-fns)
 (require 'rtj-binds)
+(require 'rtj-hydras)
 
                                     
 ;; (use-package helm
