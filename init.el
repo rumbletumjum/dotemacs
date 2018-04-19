@@ -323,12 +323,3 @@
 (global-set-key (kbd "M-o") 'window-thing)
 (put 'dired-find-alternate-file 'disabled nil)
 
-(defhydra hydra-zoom ()
-  "zoom"
-  ("+" text-scale-increase "in")
-  ("=" text-scale-increase nil)
-  ("-" text-scale-decrease "out")
-  ("r" (text-scale-set 0) "reset")
-  ("0" (text-scale-set 0) "foo" :exit t)
-  ("q" nil "quit" :exit t))
-(global-set-key (kbd "<f2>") 'hydra-zoom/body)
