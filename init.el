@@ -60,9 +60,6 @@
 
 ;; (global-set-key (kbd "C-o") 'open-next-line)
 ;; (global-set-key (kbd "M-o") 'open-previous-line)
-(global-set-key (kbd "C-h SPC") 'which-key-show-top-level)
-(global-set-key (kbd "C-x k") 'kill-default-buffer)
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; (require 'dired+)
 (setq dired-dwim-target t)
@@ -88,8 +85,6 @@
 
 ;; (add-hook 'emacs-lisp-mode-hook #'xref-etags-mode)
 
-(global-set-key (kbd "C-c S") 'windows/split-window-below-and-focus)
-(global-set-key (kbd "C-c V") 'windows/split-window-right-and-focus)
 
 (use-package recentf
   :config
@@ -179,9 +174,6 @@
   (setq sp-hybrid-kill-entire-symbol nil)
   (sp-use-paredit-bindings))
 
-(global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
-(global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
-(global-set-key (kbd "C-x g") 'magit-status)
 
 (use-package rainbow-delimiters
   :ensure t
@@ -257,7 +249,6 @@
   ("k" windmove-up "up")
   ("l" windmove-right "right"))
 
-(global-set-key (kbd "M-i") 'hydra-window-two/body)
 
 (use-package pdf-tools
   :pin manual ;; manually update
@@ -301,6 +292,9 @@
                                      (name . "^\\*scratch\\*$")
                                      (name . "^\\*Messages\\*$")))))))))
 
+(require 'rtj-fns)
+(require 'rtj-binds)
+
                                     
 ;; (use-package helm
 ;;   :ensure t
@@ -320,6 +314,5 @@
 
 
 
-(global-set-key (kbd "M-o") 'window-thing)
 (put 'dired-find-alternate-file 'disabled nil)
 
