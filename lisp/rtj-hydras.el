@@ -1,4 +1,4 @@
-(defhydra hydra-zoom ()
+(defhydra hydra-zoom (:color amaranth)
   "zoom"
   ("+" text-scale-increase "in")
   ("=" text-scale-increase nil)
