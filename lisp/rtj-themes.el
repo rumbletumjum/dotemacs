@@ -15,6 +15,7 @@
 (use-package majapahit-theme :ensure t :defer t)
 (use-package rebecca-theme :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
+(use-package spacemacs-theme :ensure t :defer t)
 (use-package zerodark-theme :ensure t :defer t)
 
 (provide 'rtj-themes)
