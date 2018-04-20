@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-;; (set-face-attribute 'default nil :font "Iosevka Term 16")
+(set-face-attribute 'default nil :font "Iosevka Type 14")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
