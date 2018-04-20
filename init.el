@@ -65,7 +65,7 @@
 ;; (require 'dired+)
 (setq dired-dwim-target t)
 (setq dired-ls-F-marks-symlinks t)
-(setq dired-listing-switches "-alh --group-directories-first")
+(setq dired-listing-switches "-lh")
 
 ;; (use-package ibuffer
 ;;   :commands ibuffer
