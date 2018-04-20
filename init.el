@@ -270,6 +270,13 @@
   (setq markdown-asymmetric-header t)
   (setq markdown-header-scaling t))
 
+(use-package deft
+  :ensure t
+  :bind ("C-c d" . deft)
+  :commands (deft)
+  :config (setq deft-directory "~/Dropbox/org"
+                deft-extensions '("org")))
+
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
 
 (use-package ibuffer
@@ -315,5 +322,5 @@
 
 
 
-(put 'dired-find-alternate-file 'disabled nil)
+;; (put 'dired-find-alternate-file 'disabled nil)
 
