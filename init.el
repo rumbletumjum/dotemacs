@@ -151,8 +151,8 @@
   :ensure t
   :bind (("M-o" . ace-window))
   :config
-  (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
-  (setq aw-dispatch-always t)
+  ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
+  ;; (setq aw-dispatch-always t)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
