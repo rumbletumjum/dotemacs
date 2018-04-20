@@ -36,14 +36,15 @@
     (package-install 'use-package))
 
   (eval-when-compile
-    (setq use-package-verbose 'debug)
-    (require 'use-package))
+    (require 'use-package)
+    (setq use-package-verbose t))
+
 
   (use-package diminish
     :ensure t))
 
 (rtj/package-init)
-(setq use-package-verbose 'debug)
+;; (setq use-package-verbose t)
 (rtj/bootstrap-use-package)
 
 (require 'rtj-fns)
