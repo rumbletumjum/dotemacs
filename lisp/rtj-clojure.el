@@ -2,6 +2,7 @@
   :ensure clojure-mode-extra-font-locking)
 
 (use-package cider
-  :ensure t)
+  :ensure t
+  :commands (cider-jack-in))
 
 (provide 'rtj-clojure)
