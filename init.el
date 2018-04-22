@@ -153,7 +153,7 @@
   :config
   ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
   ;; (setq aw-dispatch-always t)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?k ?l))
   (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
 
