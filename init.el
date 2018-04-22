@@ -222,8 +222,10 @@
       '(("l" "A link, for reading later." entry
          (file+headline "notes.org" "Reading List")
          "** %:description\n%:link\n%u"
-         :empty-lines 1)))
-
+         :empty-lines 1)
+        ("b" "Quick capture for brain dump" entry
+         (file+headline "~/Desktop/brain-dump.org" "Brain Dump")
+         "** %?")))
 (require 'org-protocol)
 
 ;; (use-package spaceline

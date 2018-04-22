@@ -1,3 +1,4 @@
+(global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c S") 'windows/split-window-below-and-focus)
 (global-set-key (kbd "C-c V") 'windows/split-window-right-and-focus)
 (global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
