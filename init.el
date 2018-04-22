@@ -273,6 +273,10 @@
   (setq markdown-asymmetric-header t)
   (setq markdown-header-scaling t))
 
+(use-package rust-mode
+  :ensure t
+  :defer t)
+
 (use-package deft
   :ensure t
   :bind ("C-c d" . deft)
