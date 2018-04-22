@@ -8,6 +8,7 @@
 (use-package creamsody-theme  :ensure t :defer t)
 (use-package darktooth-theme  :ensure t :defer t)
 (use-package doom-themes :ensure t :defer t) ;; :custom-face ;; (org-level-1 ((t (:slant italic))))))
+(use-package eziam-theme :ensure t :defer t)
 (use-package gotham-theme :ensure t :defer t)
 (use-package graphene-meta-theme :ensure t :defer t)
 (use-package gruvbox-theme :ensure t :defer t)
@@ -17,6 +18,7 @@
 (use-package rebecca-theme :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
 (use-package spacemacs-theme :ensure t :defer t)
+(use-package tao-theme :ensure t :defer t)
 (use-package zerodark-theme :ensure t :defer t)
 
 (provide 'rtj-themes)
