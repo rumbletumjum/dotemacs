@@ -56,6 +56,8 @@
 
 (setq-default indent-tabs-mode nil)
 
+(delete-selection-mode)
+
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 
