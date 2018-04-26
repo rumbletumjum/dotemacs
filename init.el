@@ -333,3 +333,16 @@
 
 ;; (put 'dired-find-alternate-file 'disabled nil)
 
+;; (defun rtj/binds-M-o (arg)
+;;   (interactive)
+;;   (cond ((= 1 (count-windows))
+;;         (windows/split-window-right-and-focus))))
+
+;; (defun rtj--binds-M-o-2 (arg)
+;;   (interactive "p")
+;;   (if arg
+;;       (message )))
+
+(global-set-key (kbd "M-o") 'ace-window)
+
+  
