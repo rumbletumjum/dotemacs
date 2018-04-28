@@ -15,6 +15,7 @@
 (use-package kaolin-themes :ensure t :defer t)
 (use-package leuven-theme :ensure t :defer t)
 (use-package majapahit-theme :ensure t :defer t)
+(use-package nord-theme :ensure t :defer t)
 (use-package rebecca-theme :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
 (use-package spacemacs-theme :ensure t :defer t)
