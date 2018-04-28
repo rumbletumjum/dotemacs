@@ -345,5 +345,7 @@
 
 (global-set-key (kbd "M-o") 'ace-window)
 
-(load-theme 'doom-one t)
+(load-theme 'doom-solarized-light t)
 (doom-themes-org-config)
+
+(require 'rtj-ui)
