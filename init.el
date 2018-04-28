@@ -49,7 +49,6 @@
 
 (require 'rtj-fns)
 (require 'rtj-themes)
-(require 'rtj-ui)
 
 
 (defaults/shorten-yes-or-no)
