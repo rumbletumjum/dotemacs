@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Input Mono Compressed Medium 20")
+(set-face-attribute 'default nil :font "Fira Mono 12")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -55,6 +55,8 @@
 (defaults/shorten-yes-or-no)
 
 (setq-default indent-tabs-mode nil)
+
+(delete-selection-mode)
 
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -210,13 +212,13 @@
   :config
   (golden-ratio-mode))
 
-(use-package org-bullets
-  :ensure t
-  :commands (org-bullets-mode)
-  :init
-  (setq org-bullets-bullet-list
-        '("◉" "◎" "○" "●" "◇"))
-  :hook (org-mode . org-bullets-mode))
+;; (use-package org-bullets
+;;   :ensure t
+;;   :commands (org-bullets-mode)
+;;   :init
+;;   (setq org-bullets-bullet-list
+;;         '("◉" "◎" "○" "●" "◇"))
+;;   :hook (org-mode . org-bullets-mode))
 
 (setq org-capture-templates
       '(("l" "A link, for reading later." entry
@@ -331,3 +333,17 @@
 
 ;; (put 'dired-find-alternate-file 'disabled nil)
 
+;; (defun rtj/binds-M-o (arg)
+;;   (interactive)
+;;   (cond ((= 1 (count-windows))
+;;         (windows/split-window-right-and-focus))))
+
+;; (defun rtj--binds-M-o-2 (arg)
+;;   (interactive "p")
+;;   (if arg
+;;       (message )))
+
+(global-set-key (kbd "M-o") 'ace-window)
+
+(load-theme 'doom-one t)
+(doom-themes-org-config)
