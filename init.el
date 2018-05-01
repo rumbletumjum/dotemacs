@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Input Mono Compressed 20")
+(set-face-attribute 'default nil :font "Input Mono Compressed 14")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -211,13 +211,13 @@
   :config
   (golden-ratio-mode))
 
-;; (use-package org-bullets
-;;   :ensure t
-;;   :commands (org-bullets-mode)
-;;   :init
-;;   (setq org-bullets-bullet-list
-;;         '("◉" "◎" "○" "●" "◇"))
-;;   :hook (org-mode . org-bullets-mode))
+(use-package org-bullets
+  :ensure t
+  :commands (org-bullets-mode)
+  :init
+  (setq org-bullets-bullet-list
+        '("#"))
+  :hook (org-mode . org-bullets-mode))
 
 (setq org-capture-templates
       '(("l" "A link, for reading later." entry
@@ -344,7 +344,9 @@
 
 (global-set-key (kbd "M-o") 'ace-window)
 
-(load-theme 'doom-nord t)
+(setq doom-one-padded-modeline t)
+(setq doom-org-special-tags t)
+(load-theme 'doom-one t)
 (doom-themes-org-config)
 
 (require 'rtj-ui)
