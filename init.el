@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "PragmataPro 20")
+(set-face-attribute 'default nil :font "Input Mono Compressed 20")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -49,7 +49,6 @@
 
 (require 'rtj-fns)
 (require 'rtj-themes)
-(require 'rtj-ui)
 
 
 (defaults/shorten-yes-or-no)
@@ -345,5 +344,7 @@
 
 (global-set-key (kbd "M-o") 'ace-window)
 
-(load-theme 'doom-one t)
+(load-theme 'doom-solarized-light t)
 (doom-themes-org-config)
+
+(require 'rtj-ui)
