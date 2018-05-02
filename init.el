@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Input Mono Compressed 14")
+(set-face-attribute 'default nil :family "Input Mono Condensed" :weight 'regular :height 180)
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -48,6 +48,7 @@
 (rtj/bootstrap-use-package)
 
 (require 'rtj-fns)
+(require 'rtj-windows)
 (require 'rtj-themes)
 
 
@@ -341,8 +342,6 @@
 ;;   (interactive "p")
 ;;   (if arg
 ;;       (message )))
-
-(global-set-key (kbd "M-o") 'ace-window)
 
 (setq doom-one-padded-modeline t)
 (setq doom-org-special-tags t)
