@@ -1,406 +1,495 @@
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-
-;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-;; (set-face-attribute 'default nil :font "Iosevka Term 16")
-
-(setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file 'noerror)
-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
-
-(defun rtj/package-init ()
-  "Set package archives and initialize package system."
-  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-  			   ("melpa" . "https://melpa.org/packages/")
-  			   ("org" . "https://orgmode.org/elpa/")))
-
-  ;; (setq package-archives '(("gnu" . "~/elpa-mirror/gnu/")
-  ;;       		   ("melpa" . "~/elpa-mirror/melpa/")
-  ;;       		   ("org" . "~/elpa-mirror/org/")))
-
-  (setq package-archive-priorities '(("org" . 3)
-                                     ("melpa" . 2)
-                                     ("gnu" . 1)))
+(defun package-init ()
+  "Set package archives and initialize package system"
+  (setq package-archives '(("org" . "//?/h:/spacemacs-0.200.13/elpa-mirror-master/org/")
+                           ("gnu" . "//?/h:/spacemacs-0.200.13/elpa-mirror-master/gnu/")
+                           ("melpa" . "//?/h:/spacemacs-0.200.13/elpa-mirror-master/melpa/")))
 
   (setq package-enable-at-startup nil)
   (package-initialize))
 
-(defun rtj/bootstrap-use-package ()
+(defun bootstrap-use-package ()
   "Ensure use-package is installed"
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
 
   (eval-when-compile
-    (setq use-package-verbose 'debug)
-    (require 'use-package))
+    (require 'use-package)))
 
-  (use-package diminish
-    :ensure t))
+(package-init)
+(bootstrap-use-package)
 
-(rtj/package-init)
-(setq use-package-verbose 'debug)
-(rtj/bootstrap-use-package)
+;; (add-to-list 'default-frame-alist '(font . "Fira Code 10"))
+;;(set-face-attribute 'default nil :family "Pragsevka" :height 90)
 
-(require 'rtj-themes)
-(require 'rtj-ui)
+(set-face-attribute 'default nil :family "Fira Code" :height 100)
+;; (set-face-attribute 'default nil :font "Pragsevka 12")
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+
+(mapcar #'disable-theme custom-enabled-themes)
+
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+
+(defun defaults/clean-interface ()
+  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+    (when (fboundp mode)
+      (funcall mode -1)))
+  (setq inhibit-startup-screen t))
 
 (defun defaults/shorten-yes-or-no ()
   "Don't ask `yes/no?', ask `y/n?'"
   (defalias 'yes-or-no-p 'y-or-n-p))
 
 (defaults/shorten-yes-or-no)
+(defaults/clean-interface)
+
+(defun utils/open-init-file ()
+  "Shortcut to open init.el"
+  (interactive)
+  (window-fns/split-window-right-and-focus)
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
+
+(global-set-key (kbd "C-c I") 'utils/open-init-file)
+
+
+(add-hook 'before-save-hook 'time-stamp)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (setq-default indent-tabs-mode nil)
+(delete-selection-mode)
 
-(setq auto-save-default nil)
-(setq make-backup-files nil)
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/autosaves/" t)))
+(setq backup-directory-alist
+      `((".*" . "~/.emacs.d/backups")))
 
-(defun open-next-line (arg)
-  (interactive "p")
-  (end-of-line)
-  (open-line arg)
-  (next-line 1)
-  (when #'newline-and-indent
-    (indent-according-to-mode)))
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      backup-by-copying t)
 
-(defun open-previous-line (arg)
-  (interactive "p")
-  (beginning-of-line)
-  (open-line arg)
-  (when #'newline-and-indent
-    (indent-according-to-mode)))
-
-(defun kill-default-buffer ()
-  "Kill the currently active buffer -- set to C-x k so that users are not asked which buffer they want to kill."
-  (interactive)
-  (let (kill-buffer-query-functions) (kill-buffer)))
-
-
-(defun rtj/reset-theme ()
-  (interactive)
-  (mapcar #'disable-theme custom-enabled-themes ))
-
-;; (global-set-key (kbd "C-o") 'open-next-line)
-;; (global-set-key (kbd "M-o") 'open-previous-line)
-(global-set-key (kbd "C-h SPC") 'which-key-show-top-level)
-(global-set-key (kbd "C-x k") 'kill-default-buffer)
-(global-set-key (kbd "M-/") 'hippie-expand)
-
-;; (require 'dired+)
-(setq dired-dwim-target t)
-(setq dired-ls-F-marks-symlinks t)
-(setq dired-listing-switches "-alh --group-directories-first")
-
-;; (use-package ibuffer
-;;   :commands ibuffer
-;;   :bind ("C-x C-b" . ibuffer)
-;;   :config (progn
-;;             (use-package ibuf-ext)
-;;             (add-hook 'ibuffer-mode-hook
-;;                       (lambda ()
-;;                         (local-set-key (kbd "r" 'ibuffer-update))))))
-
-(defun my-ibuffer-stale-p (&optional noconfirm)
-  (frame-or-buffer-changed-p 'ibuffer-auto-buffers-changed))
-
-(defun my-ibuffer-auto-revert-setup ()
-  (setq-local buffer-stale-function 'my-ibuffer-stale-p)
-  (setq-local auto-revert-verbose nil)
-  (auto-revert-mode 1))
-
-(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
-  (when (fboundp mode)
-    (funcall mode -1)))
-
-(setq ring-bell-function 'ignore)
-
-(defun windows/split-window-below-and-focus ()
+(defun window-fns/split-window-below-and-focus()
   (interactive)
   (split-window-below)
   (windmove-down)
   (when (and (boundp 'golden-ratio-mode)
-	     (symbol-value golden-ratio-mode))
+     (symbol-value golden-ratio-mode))
     (golden-ratio)))
 
-(defun windows/split-window-right-and-focus ()
+(defun window-fns/split-window-right-and-focus()
   (interactive)
   (split-window-right)
   (windmove-right)
   (when (and (boundp 'golden-ratio-mode)
-	     (symbol-value golden-ratio-mode))
+     (symbol-value golden-ratio-mode))
     (golden-ratio)))
 
-;; (add-hook 'emacs-lisp-mode-hook #'xref-etags-mode)
+(global-set-key (kbd "C-c C-l") 'org-insert-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b n") 'next-buffer)
+(global-set-key (kbd "C-c b p") 'previous-buffer)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c w F") 'delete-frame)
+(global-set-key (kbd "C-c w f") 'make-frame)
+(global-set-key (kbd "C-c w s") 'window-fns/split-window-below-and-focus)
+(global-set-key (kbd "C-c w v") 'window-fns/split-window-right-and-focus)
+(global-set-key (kbd "C-h SPC") 'which-key-show-top-level)
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+(global-set-key (kbd "M-/") 'hippie-expand)
+;; (global-set-key (kbd "M-o") 'other-window)
 
-(global-set-key (kbd "C-c S") 'windows/split-window-below-and-focus)
-(global-set-key (kbd "C-c V") 'windows/split-window-right-and-focus)
-
-(use-package recentf
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window))
   :config
-  (setq recentf-max-saved-items 500
-	recentf-max-menu-items 15
-	recentf-auto-cleanup 'never)
-  (recentf-mode))
+  (setq aw-dispatch-always t))
+
+(defun keybinds/M-o-window-fn ()
+  (interactive)
+  (if (= 1 (count-windows))
+      (message "1 Window")
+    (message "%d Windows" (count-windows))))
+
+(setq sentence-end-double-space nil)
+
+(use-package diminish
+  :ensure t)
 
 (use-package smex
   :ensure t)
+
+(use-package flx
+  :ensure t)
+
+(use-package org
+  :ensure t
+  :bind (("C-c c" . org-capture))
+  :config
+  (setq org-enforce-todo-dependencies t)
+  (setq org-agenda-files '("z:/Desktop/agenda/"))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+  (setq org-log-redeadline (quote time))
+  (setq org-log-done (quote time))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c@)"))
+        org-log-done 'time)
+  (setq org-capture-templates
+        '(("n" "note" entry (file "z:/Desktop/org/notes.org")
+           "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+          ("l" "Log" entry (file+olp+datetree "z:/Desktop/agenda/log.org")
+           "* %? \n%U" :clock-in t :clock-keep t)
+          ("t" "Task" entry (file+olp+datetree "z:/Desktop/agenda/today.org")
+           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")))
+  (defun org-refile-get-targets (&optional default-buffer)
+      "Produce a table with refile targets."
+      (let ((case-fold-search nil)
+            ;; otherwise org confuses "TODO" as a kw and "Todo" as a word
+            (entries (or org-refile-targets '((nil . (:level . 1)))))
+            targets tgs files desc descre)
+        (message "Getting targets...")
+        (with-current-buffer (or default-buffer (current-buffer))
+          (dolist (entry entries)
+            (setq files (car entry) desc (cdr entry))
+            (cond
+             ((null files) (setq files (list (current-buffer))))
+             ((eq files 'org-agenda-files)
+              (setq files (org-agenda-files 'unrestricted)))
+             ((and (symbolp files) (fboundp files))
+              (setq files (funcall files)))
+             ((and (symbolp files) (boundp files))
+              (setq files (symbol-value files))))
+            (when (stringp files) (setq files (list files)))
+            (cond
+             ((eq (car desc) :tag)
+              (setq descre (concat "^\\*+[ \t]+.*?:" (regexp-quote (cdr desc)) ":")))
+             ((eq (car desc) :todo)
+              (setq descre (concat "^\\*+[ \t]+" (regexp-quote (cdr desc)) "[ \t]")))
+             ((eq (car desc) :regexp)
+              (setq descre (cdr desc)))
+             ((eq (car desc) :level)
+              (setq descre (concat "^\\*\\{" (number-to-string
+                                              (if org-odd-levels-only
+                                                  (1- (* 2 (cdr desc)))
+                                                (cdr desc)))
+                                   "\\}[ \t]")))
+             ((eq (car desc) :maxlevel)
+              (setq descre (concat "^\\*\\{1," (number-to-string
+                                                (if org-odd-levels-only
+                                                    (1- (* 2 (cdr desc)))
+                                                  (cdr desc)))
+                                   "\\}[ \t]")))
+             (t (error "Bad refiling target description %s" desc)))
+            (dolist (f files)
+              (with-current-buffer (if (bufferp f) f (org-get-agenda-file-buffer f))
+                (or
+                 (setq tgs (org-refile-cache-get (buffer-file-name) descre))
+                 (progn
+                   (when (bufferp f)
+                     (setq f (buffer-file-name (buffer-base-buffer f))))
+                   (setq f (and f (expand-file-name f)))
+                   (when (eq org-refile-use-outline-path 'file)
+                     (push (list (file-name-nondirectory f) f nil nil) tgs))
+                   (org-with-wide-buffer
+                    (goto-char (point-min))
+                    (setq org-outline-path-cache nil)
+                    (while (re-search-forward descre nil t)
+                      (beginning-of-line)
+                      (let ((case-fold-search nil))
+                        (looking-at org-complex-heading-regexp))
+                      (let ((begin (point))
+                            (heading (match-string-no-properties 4)))
+                        (unless (or (and
+                                     org-refile-target-verify-function
+                                     (not
+                                      (funcall org-refile-target-verify-function)))
+                                    (not heading))
+                          (let ((re (format org-complex-heading-regexp-format
+                                            (regexp-quote heading)))
+                                (target
+                                 (if (not org-refile-use-outline-path) heading
+                                   (concat
+                                    (file-name-nondirectory (buffer-file-name (buffer-base-buffer)))
+                                    " ✦ "
+                                    (org-format-outline-path (org-get-outline-path t t) 1000 nil " ➜ ")
+                                    ))))
+                            (push (list target f re (org-refile-marker (point)))
+                                  tgs)))
+                        (when (= (point) begin)
+                          ;; Verification function has not moved point.
+                          (end-of-line)))))))
+                (when org-refile-use-cache
+                  (org-refile-cache-put tgs (buffer-file-name) descre))
+                (setq targets (append tgs targets))))))
+        (message "Getting targets...done")
+        (delete-dups (nreverse targets)))))
+
+;; (require 'org)
+  ;; (setq org-enforce-todo-dependencies t)
+  ;; (setq org-agenda-files '("z:/Desktop/agenda/"))
+  ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
+  ;; (setq org-refile-use-outline-path 'file)
+  ;; (setq org-outline-path-complete-in-steps nil)
+  ;; (setq org-todo-keywords
+  ;;       '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c@)"))
+  ;;       org-log-done 'time)
+  ;; (setq org-capture-templates
+  ;;       '(("n" "note" entry (file "z:/Desktop/org/notes.org")
+  ;;          "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+  ;;         ("l" "Log" entry (file+olp+datetree "z:/Desktop/org/log.org")
+  ;;          "* %? \n%U" :clock-in t :clock-keep t)
+  ;;         ("t" "Task" entry (file+olp+datetree "z:/Desktop/agenda/today.org")
+  ;;          "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n"))
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (setq org-bullets-bullet-list "#")
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 
 (use-package ivy
   :ensure t
   :diminish ivy-mode
   :config
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-re-builders-alist
-        '((swiper . ivy--regex-plus)
-          (t . ivy--regex-fuzzy)))
-  (setq ivy-initial-inputs-alist nil)
   (ivy-mode))
 
-(use-package flx
+(use-package ace-window
+  :ensure t)
+
+(use-package avy
   :ensure t)
 
 (use-package hydra
   :ensure t)
 
-(use-package ivy-hydra
-  :ensure t)
-
 (use-package swiper
   :ensure t
+  :bind (("C-s" . swiper))
   :config
-  (global-set-key (kbd "C-s") 'swiper))
+  (setq ivy-count-format "(%d/%d) "))
 
 (use-package counsel
-  ;; :bind (("M-x" . counsel-M-x)
-  ;;        ("C-h f" . counsel-describe-function)
-  :bind (("C-c t" . counsel-load-theme)
-         ("M-x" . counsel-M-x)
-         ("C-h a" . counsel-apropos)
-         ("C-x C-b". counsel-ibuffer)
-         ("M-y" . counsel-yank-pop)
-         :map ivy-minibuffer-map
-         ("M-y" . ivy-next-line))
   :ensure t
-  :diminish counsel-mode
+  :bind ("C-c t" . counsel-load-theme))
+
+(use-package anzu
+  :ensure t
+  :diminish global-anzu-mode
   :config
-  ;; (global-set-key (kbd "C-h v") 'counsel-describe-variable)
-  ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-  (counsel-mode))
-
-
-(use-package avy
-  :ensure t
-  :bind (("C-;" . avy-goto-char-timer)))
-
-(use-package ace-window
-  :ensure t
-  :bind (("M-o" . ace-window))
-  :config
-  (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
-  (setq aw-dispatch-always t)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (global-unset-key (kbd "C-x o")))
-
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-initialize))
-
-(require 'rtj-clojure)
-(require 'rtj-fns)
-(require 'rtj-lisp)
-(require 'rtj-racket)
-
-(use-package smartparens
-  :ensure t
-  :config
-  (require 'smartparens-config)
-  (setq sp-base-key-bindings 'paredit)
-  (setq sp-autoskip-closing-pair 'always)
-  (setq sp-hybrid-kill-entire-symbol nil)
-  (sp-use-paredit-bindings))
-
-(global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
-(global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
-(global-set-key (kbd "C-x g") 'magit-status)
+  (global-anzu-mode))
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook (((prog-mode cider-repl-mode) . rainbow-delimiters-mode)))
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode))
+
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t
+  :defer t)
+
+(use-package challenger-deep-theme
+  :ensure t
+  :defer t)
+
+(use-package dakrone-theme
+  :ensure t
+  :defer t)
+
+(use-package darktooth-theme
+  :ensure t
+  :defer t)
+
+(use-package doom-themes
+  :ensure t
+  :defer t)
+
+(use-package eziam-theme
+  :ensure t
+  :defer t)
+
+(use-package gruvbox-theme
+  :ensure t
+  :defer t)
+
+(use-package solarized-theme
+  :ensure t
+  :defer t)
+
+(use-package sublime-themes
+  :ensure t
+  :defer t)
+
+(use-package tao-theme
+  :ensure t
+  :defer t)
+
+(use-package zerodark-theme
+  :ensure t
+  :defer t)
 
 (use-package which-key
   :ensure t
-  :diminish
+  :diminish which-key-mode
   :config
   (which-key-mode))
-
-(use-package osx-trash
-  :ensure t
-  :config
-  (when (eq system-type 'darwin)
-    (osx-trash-setup))
-  (setq delete-by-moving-to-trash t))
-
-(use-package clojure-mode
-  :ensure t)
-
-(use-package expand-region
-  :bind (("C-=" . er/expand-region))
-  :ensure t)
-
-(use-package multiple-cursors
-  :ensure t)
-
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :config
-  (golden-ratio-mode))
-
-(use-package org-bullets
-  :ensure t
-  :commands (org-bullets-mode)
-  :init
-  (setq org-bullets-bullet-list
-        '("◉" "◎" "○" "●" "◇"))
-  :hook (org-mode . org-bullets-mode))
-
-(setq org-capture-templates
-      '(("l" "A link, for reading later." entry
-         (file+headline "notes.org" "Reading List")
-         "** %:description\n%:link\n%u"
-         :empty-lines 1)))
-
-(require 'org-protocol)
-
-;; (use-package spaceline
-;;   :ensure t
-;;   :config
-;;   (require 'spaceline-config)
-;;   (spaceline-emacs-theme))
-
-;; (load-theme 'doom-solarized-light t)
-
-(global-set-key
- (kbd "C-M-o")
- (defhydra hydra-window ()
-   "window"
-   ("h" windmove-left "left")
-   ("j" windmove-down)
-   ("k" windmove-up)
-   ("l" windmove-right)
-   ("a" ace-window)))
-
-(defhydra hydra-window-two (:color blue)
-  "window2"
-  ("h" windmove-left "left")
-  ("j" windmove-down "down")
-  ("k" windmove-up "up")
-  ("l" windmove-right "right"))
-
-(global-set-key (kbd "M-i") 'hydra-window-two/body)
-
-(use-package pdf-tools
-  :pin manual ;; manually update
-  :defer t
-  :config
-  ;; initialise
-  (pdf-tools-install)
-  ;; open pdfs scaled to fit page
-  (setq-default pdf-view-display-size 'fit-page)
-  ;; automatically annotate highlights
-  (setq pdf-annot-activate-created-annotations t)
-  ;; use normal isearch
-  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
 (use-package markdown-mode
   :ensure t
   :config
   (setq markdown-asymmetric-header t)
-  (setq markdown-header-scaling t))
+  (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              (set-fill-column 90))))
 
-(setq explicit-shell-file-name "/usr/local/bin/zsh")
+(use-package golden-ratio
+  :ensure t
+  :diminish golden-ratio-mode
+  :config
+  (golden-ratio-mode)
+  (add-to-list 'golden-ratio-extra-commands 'ace-window))
+
+(use-package expand-region
+  :ensure t
+  :bind(("C-=" . 'er/expand-region)))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)))
+
+;; (setq lisp-ls-use-insert-directory-program t)
+
+;; (setq insert-directory-program "i:/sw/external/gnuwin32-1.0/bin/ls.exe")
+(setq lisp-ls-ignore-case t)
+(setq lisp-ls-dirs-first t)
+(setq dired-listing-switches "-lh")
+(put 'dired-find-alternate-file 'disabled nil)
+
+(add-to-list 'auto-mode-alist '("\\.sp\\'" . sql-mode))
+(add-to-list 'auto-mode-alist '("\\.tab\\'" . sql-mode))
 
 (use-package ibuffer
   :commands ibuffer
   :bind ("C-x C-b" . ibuffer)
-  :config (progn
-            (use-package ibuf-ext)
-            ;; ibuffer, I like my buffers to be grouped
-            (add-hook 'ibuffer-mode-hook
-                      (lambda ()
-                        (my-ibuffer-auto-revert-setup)
-                        (local-set-key (kbd "r") 'ibuffer-update)
-                        (ibuffer-switch-to-saved-filter-groups
-                         "default")))
-            (setq ibuffer-saved-filter-groups
-                  (quote (("default"
-                           ("dired" (mode . dired-mode))
-                           ("org" (mode . org-mode))
-                           ("magit" (name . "\*magit"))
-                           ("emacs" (or
-                                     (name . "^\\*scratch\\*$")
-                                     (name . "^\\*Messages\\*$")))))))))
+  :config
+  (progn
+  (use-package ibuf-ext)
+  ;; ibuffer, I like my buffers to be grouped
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (local-set-key (kbd "r") 'ibuffer-update)
+              (ibuffer-switch-to-saved-filter-groups
+               "default")))
+  (setq ibuffer-saved-filter-groups
+        (quote (("default"
+                 ("dired" (mode . dired-mode))
+                 ("org" (mode . org-mode))
+                 ("java" (name . "^\\*java\\$"))
+                 ("perl" (mode . perl-mode))
+                 ("sql" (mode . sql-mode))
+                 ("planner" (or
+                             (name . "^\\*Calendar\\*$")
+                             (name . "^diary$")
+                             (mode . muse-mode)))
+                 ("emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")))))))))
 
-(defun close-all-buffers ()
-  (interactive)
-  (mapc 'kill-buffer (buffer-list)))
-                                    
-;; (use-package helm
-;;   :ensure t
-;;   :bind ("M-x" . 'helm-M-x)
-;;   :config
-;;   (setq helm-M-x-fuzzy-match t
-;;         helm-split-window-in-side-p t))
+(load-theme 'doom-citylights t)
 
-;; (defun window-thing (arg)
-;;   (interactive "p")
-;;   (cond
-;;    ((= 1 (count-windows))
-;;     (windows/split-window-right-and-focus))
-;;    ((= 2 (count-windows))
-;;     (if ))
-;;    (t (ace-window 1))))
+(global-set-key (kbd "<f2>")
+                (defhydra hydra-zoom (:color amaranth)
+                  "zoom"
+                  ("+" text-scale-increase "increase")
+                  ("0" (text-scale-set 0) "reset")
+                  ("-" text-scale-decrease "decrease")
+                  ("=" text-scale-increase nil)
+                  ("q" nil "quit" :color blue)))
 
-(defun window-thing (arg)
-  (interactive "p")
-  (cond
-   ((= 1 (count-windows))
-    (progn
-      (split-window-right)
-      (windmove-right)))
-   ((= 2 (count-windows))
-    (if (= arg 4)
-        (progn
-          (other-window 1)
-          (delete-window))
-      (other-window 1)))
-   ((= 3 (count-windows))
-    (if (= arg 4)
-        (delete-other-windows))
-    (ace-window 1))))
-
-(defun arg-test (arg)
-  (interactive "p")
-  (message "%s" arg))
-
-(global-set-key (kbd "M-o") 'window-thing)
-(put 'dired-find-alternate-file 'disabled nil)
-
-(defhydra hydra-zoom ()
-  "zoom"
-  ("+" text-scale-increase "in")
-  ("=" text-scale-increase nil)
-  ("-" text-scale-decrease "out")
-  ("r" (text-scale-set 0) "reset")
-  ("0" (text-scale-set 0) "foo" :exit t)
-  ("q" nil "quit" :exit t))
-(global-set-key (kbd "<f2>") 'hydra-zoom/body)
+    (defun org-refile-get-targets (&optional default-buffer)
+      "Produce a table with refile targets."
+      (let ((case-fold-search nil)
+            ;; otherwise org confuses "TODO" as a kw and "Todo" as a word
+            (entries (or org-refile-targets '((nil . (:level . 1)))))
+            targets tgs files desc descre)
+        (message "Getting targets...")
+        (with-current-buffer (or default-buffer (current-buffer))
+          (dolist (entry entries)
+            (setq files (car entry) desc (cdr entry))
+            (cond
+             ((null files) (setq files (list (current-buffer))))
+             ((eq files 'org-agenda-files)
+              (setq files (org-agenda-files 'unrestricted)))
+             ((and (symbolp files) (fboundp files))
+              (setq files (funcall files)))
+             ((and (symbolp files) (boundp files))
+              (setq files (symbol-value files))))
+            (when (stringp files) (setq files (list files)))
+            (cond
+             ((eq (car desc) :tag)
+              (setq descre (concat "^\\*+[ \t]+.*?:" (regexp-quote (cdr desc)) ":")))
+             ((eq (car desc) :todo)
+              (setq descre (concat "^\\*+[ \t]+" (regexp-quote (cdr desc)) "[ \t]")))
+             ((eq (car desc) :regexp)
+              (setq descre (cdr desc)))
+             ((eq (car desc) :level)
+              (setq descre (concat "^\\*\\{" (number-to-string
+                                              (if org-odd-levels-only
+                                                  (1- (* 2 (cdr desc)))
+                                                (cdr desc)))
+                                   "\\}[ \t]")))
+             ((eq (car desc) :maxlevel)
+              (setq descre (concat "^\\*\\{1," (number-to-string
+                                                (if org-odd-levels-only
+                                                    (1- (* 2 (cdr desc)))
+                                                  (cdr desc)))
+                                   "\\}[ \t]")))
+             (t (error "Bad refiling target description %s" desc)))
+            (dolist (f files)
+              (with-current-buffer (if (bufferp f) f (org-get-agenda-file-buffer f))
+                (or
+                 (setq tgs (org-refile-cache-get (buffer-file-name) descre))
+                 (progn
+                   (when (bufferp f)
+                     (setq f (buffer-file-name (buffer-base-buffer f))))
+                   (setq f (and f (expand-file-name f)))
+                   (when (eq org-refile-use-outline-path 'file)
+                     (push (list (file-name-nondirectory f) f nil nil) tgs))
+                   (org-with-wide-buffer
+                    (goto-char (point-min))
+                    (setq org-outline-path-cache nil)
+                    (while (re-search-forward descre nil t)
+                      (beginning-of-line)
+                      (let ((case-fold-search nil))
+                        (looking-at org-complex-heading-regexp))
+                      (let ((begin (point))
+                            (heading (match-string-no-properties 4)))
+                        (unless (or (and
+                                     org-refile-target-verify-function
+                                     (not
+                                      (funcall org-refile-target-verify-function)))
+                                    (not heading))
+                          (let ((re (format org-complex-heading-regexp-format
+                                            (regexp-quote heading)))
+                                (target
+                                 (if (not org-refile-use-outline-path) heading
+                                   (concat
+                                    (file-name-nondirectory (buffer-file-name (buffer-base-buffer)))
+                                    " ✦ "
+                                    (org-format-outline-path (org-get-outline-path t t) 1000 nil " ➜ ")
+                                    ))))
+                            (push (list target f re (org-refile-marker (point)))
+                                  tgs)))
+                        (when (= (point) begin)
+                          ;; Verification function has not moved point.
+                          (end-of-line)))))))
+                (when org-refile-use-cache
+                  (org-refile-cache-put tgs (buffer-file-name) descre))
+                (setq targets (append tgs targets))))))
+        (message "Getting targets...done")
+        (delete-dups (nreverse targets))))
