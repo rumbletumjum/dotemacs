@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-;; (set-face-attribute 'default nil :font "Iosevka Term 16")
+(set-face-attribute 'default nil :family "Input Mono Condensed" :weight 'regular :height 180)
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -36,65 +36,39 @@
     (package-install 'use-package))
 
   (eval-when-compile
-    (setq use-package-verbose 'debug)
-    (require 'use-package))
+    (require 'use-package)
+    (setq use-package-verbose t))
+
 
   (use-package diminish
     :ensure t))
 
 (rtj/package-init)
-(setq use-package-verbose 'debug)
+;; (setq use-package-verbose t)
 (rtj/bootstrap-use-package)
 
+(require 'rtj-fns)
+(require 'rtj-windows)
 (require 'rtj-themes)
-(require 'rtj-ui)
 
-(defun defaults/shorten-yes-or-no ()
-  "Don't ask `yes/no?', ask `y/n?'"
-  (defalias 'yes-or-no-p 'y-or-n-p))
 
 (defaults/shorten-yes-or-no)
 
 (setq-default indent-tabs-mode nil)
 
+(delete-selection-mode)
+
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 
-(defun open-next-line (arg)
-  (interactive "p")
-  (end-of-line)
-  (open-line arg)
-  (next-line 1)
-  (when #'newline-and-indent
-    (indent-according-to-mode)))
-
-(defun open-previous-line (arg)
-  (interactive "p")
-  (beginning-of-line)
-  (open-line arg)
-  (when #'newline-and-indent
-    (indent-according-to-mode)))
-
-(defun kill-default-buffer ()
-  "Kill the currently active buffer -- set to C-x k so that users are not asked which buffer they want to kill."
-  (interactive)
-  (let (kill-buffer-query-functions) (kill-buffer)))
-
-
-(defun rtj/reset-theme ()
-  (interactive)
-  (mapcar #'disable-theme custom-enabled-themes ))
 
 ;; (global-set-key (kbd "C-o") 'open-next-line)
 ;; (global-set-key (kbd "M-o") 'open-previous-line)
-(global-set-key (kbd "C-h SPC") 'which-key-show-top-level)
-(global-set-key (kbd "C-x k") 'kill-default-buffer)
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; (require 'dired+)
 (setq dired-dwim-target t)
 (setq dired-ls-F-marks-symlinks t)
-(setq dired-listing-switches "-alh --group-directories-first")
+(setq dired-listing-switches "-lh")
 
 ;; (use-package ibuffer
 ;;   :commands ibuffer
@@ -105,13 +79,6 @@
 ;;                       (lambda ()
 ;;                         (local-set-key (kbd "r" 'ibuffer-update))))))
 
-(defun my-ibuffer-stale-p (&optional noconfirm)
-  (frame-or-buffer-changed-p 'ibuffer-auto-buffers-changed))
-
-(defun my-ibuffer-auto-revert-setup ()
-  (setq-local buffer-stale-function 'my-ibuffer-stale-p)
-  (setq-local auto-revert-verbose nil)
-  (auto-revert-mode 1))
 
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode)
@@ -119,26 +86,9 @@
 
 (setq ring-bell-function 'ignore)
 
-(defun windows/split-window-below-and-focus ()
-  (interactive)
-  (split-window-below)
-  (windmove-down)
-  (when (and (boundp 'golden-ratio-mode)
-	     (symbol-value golden-ratio-mode))
-    (golden-ratio)))
-
-(defun windows/split-window-right-and-focus ()
-  (interactive)
-  (split-window-right)
-  (windmove-right)
-  (when (and (boundp 'golden-ratio-mode)
-	     (symbol-value golden-ratio-mode))
-    (golden-ratio)))
 
 ;; (add-hook 'emacs-lisp-mode-hook #'xref-etags-mode)
 
-(global-set-key (kbd "C-c S") 'windows/split-window-below-and-focus)
-(global-set-key (kbd "C-c V") 'windows/split-window-right-and-focus)
 
 (use-package recentf
   :config
@@ -203,9 +153,10 @@
   :ensure t
   :bind (("M-o" . ace-window))
   :config
-  (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
-  (setq aw-dispatch-always t)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
+  ;; (setq aw-dispatch-always t)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?k ?l))
+  (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
 
 (use-package exec-path-from-shell
@@ -215,7 +166,6 @@
   (exec-path-from-shell-initialize))
 
 (require 'rtj-clojure)
-(require 'rtj-fns)
 (require 'rtj-lisp)
 (require 'rtj-racket)
 
@@ -228,9 +178,6 @@
   (setq sp-hybrid-kill-entire-symbol nil)
   (sp-use-paredit-bindings))
 
-(global-set-key (kbd "C-c w t") 'rtj/window-split-toggle)
-(global-set-key (kbd "C-c w T") 'rtj/transpose-windows)
-(global-set-key (kbd "C-x g") 'magit-status)
 
 (use-package rainbow-delimiters
   :ensure t
@@ -270,15 +217,17 @@
   :commands (org-bullets-mode)
   :init
   (setq org-bullets-bullet-list
-        '("◉" "◎" "○" "●" "◇"))
+        '("#"))
   :hook (org-mode . org-bullets-mode))
 
 (setq org-capture-templates
       '(("l" "A link, for reading later." entry
          (file+headline "notes.org" "Reading List")
          "** %:description\n%:link\n%u"
-         :empty-lines 1)))
-
+         :empty-lines 1)
+        ("b" "Quick capture for brain dump" entry
+         (file+headline "~/Desktop/brain-dump.org" "Brain Dump")
+         "** %?")))
 (require 'org-protocol)
 
 ;; (use-package spaceline
@@ -306,7 +255,6 @@
   ("k" windmove-up "up")
   ("l" windmove-right "right"))
 
-(global-set-key (kbd "M-i") 'hydra-window-two/body)
 
 (use-package pdf-tools
   :pin manual ;; manually update
@@ -326,6 +274,17 @@
   :config
   (setq markdown-asymmetric-header t)
   (setq markdown-header-scaling t))
+
+(use-package rust-mode
+  :ensure t
+  :defer t)
+
+(use-package deft
+  :ensure t
+  :bind ("C-c d" . deft)
+  :commands (deft)
+  :config (setq deft-directory "~/Dropbox/org"
+                deft-extensions '("org")))
 
 (setq explicit-shell-file-name "/usr/local/bin/zsh")
 
@@ -350,9 +309,9 @@
                                      (name . "^\\*scratch\\*$")
                                      (name . "^\\*Messages\\*$")))))))))
 
-(defun close-all-buffers ()
-  (interactive)
-  (mapc 'kill-buffer (buffer-list)))
+(require 'rtj-binds)
+(require 'rtj-hydras)
+
                                     
 ;; (use-package helm
 ;;   :ensure t
@@ -370,37 +329,23 @@
 ;;     (if ))
 ;;    (t (ace-window 1))))
 
-(defun window-thing (arg)
-  (interactive "p")
-  (cond
-   ((= 1 (count-windows))
-    (progn
-      (split-window-right)
-      (windmove-right)))
-   ((= 2 (count-windows))
-    (if (= arg 4)
-        (progn
-          (other-window 1)
-          (delete-window))
-      (other-window 1)))
-   ((= 3 (count-windows))
-    (if (= arg 4)
-        (delete-other-windows))
-    (ace-window 1))))
 
-(defun arg-test (arg)
-  (interactive "p")
-  (message "%s" arg))
 
-(global-set-key (kbd "M-o") 'window-thing)
-(put 'dired-find-alternate-file 'disabled nil)
+;; (put 'dired-find-alternate-file 'disabled nil)
 
-(defhydra hydra-zoom ()
-  "zoom"
-  ("+" text-scale-increase "in")
-  ("=" text-scale-increase nil)
-  ("-" text-scale-decrease "out")
-  ("r" (text-scale-set 0) "reset")
-  ("0" (text-scale-set 0) "foo" :exit t)
-  ("q" nil "quit" :exit t))
-(global-set-key (kbd "<f2>") 'hydra-zoom/body)
+;; (defun rtj/binds-M-o (arg)
+;;   (interactive)
+;;   (cond ((= 1 (count-windows))
+;;         (windows/split-window-right-and-focus))))
+
+;; (defun rtj--binds-M-o-2 (arg)
+;;   (interactive "p")
+;;   (if arg
+;;       (message )))
+
+(setq doom-one-padded-modeline t)
+(setq doom-org-special-tags t)
+(load-theme 'doom-one t)
+(doom-themes-org-config)
+
+(require 'rtj-ui)
