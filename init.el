@@ -58,9 +58,19 @@
 
 (delete-selection-mode)
 
-(setq auto-save-default nil)
-(setq make-backup-files nil)
+;; (setq auto-save-default nil)
+;; (setq make-backup-files nil)
 
+(setq auto-save-file-name-transforms
+      '((".*" "~/.emacs.d/autosaves/" t)))
+(setq backup-directory-alist
+      '((".*" . "~/.emacs.d/backups/")))
+
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      backup-by-copying t)
 
 ;; (global-set-key (kbd "C-o") 'open-next-line)
 ;; (global-set-key (kbd "M-o") 'open-previous-line)
