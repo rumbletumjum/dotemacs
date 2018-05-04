@@ -237,7 +237,10 @@
          :empty-lines 1)
         ("b" "Quick capture for brain dump" entry
          (file+headline "~/Desktop/brain-dump.org" "Brain Dump")
-         "** %?")))
+         "** %?")
+        ("j" "Journal entry" entry
+         (file+olp+datetree "~/Desktop/journal.org")
+         "* %?\n%U")))
 (require 'org-protocol)
 
 ;; (use-package spaceline
