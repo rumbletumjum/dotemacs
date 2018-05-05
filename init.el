@@ -2,7 +2,8 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Input Mono Compressed 14")
+(set-face-attribute 'default nil :font "Iosevka Term Slab 14")
+;; (set-face-attribute 'default nil :font "Share Tech Mono 16")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -48,6 +49,7 @@
 (rtj/bootstrap-use-package)
 
 (require 'rtj-fns)
+(require 'rtj-windows)
 (require 'rtj-themes)
 (require 'rtj-ui)
 
@@ -58,9 +60,19 @@
 
 (delete-selection-mode)
 
-(setq auto-save-default nil)
-(setq make-backup-files nil)
+;; (setq auto-save-default nil)
+;; (setq make-backup-files nil)
 
+(setq auto-save-file-name-transforms
+      '((".*" "~/.emacs.d/autosaves/" t)))
+(setq backup-directory-alist
+      '((".*" . "~/.emacs.d/backups/")))
+
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      backup-by-copying t)
 
 ;; (global-set-key (kbd "C-o") 'open-next-line)
 ;; (global-set-key (kbd "M-o") 'open-previous-line)
@@ -227,7 +239,10 @@
          :empty-lines 1)
         ("b" "Quick capture for brain dump" entry
          (file+headline "~/Desktop/brain-dump.org" "Brain Dump")
-         "** %?")))
+         "** %?")
+        ("j" "Journal entry" entry
+         (file+olp+datetree "~/Desktop/journal.org")
+         "* %?\n%U")))
 (require 'org-protocol)
 
 ;; (use-package spaceline
@@ -342,8 +357,6 @@
 ;;   (interactive "p")
 ;;   (if arg
 ;;       (message )))
-
-(global-set-key (kbd "M-o") 'ace-window)
 
 (setq doom-one-padded-modeline t)
 (setq doom-org-special-tags t)

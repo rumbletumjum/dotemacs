@@ -7,6 +7,7 @@
 (use-package color-theme-sanityinc-tomorrow :ensure t :defer t)
 (use-package creamsody-theme  :ensure t :defer t)
 (use-package darktooth-theme  :ensure t :defer t)
+(use-package dracula-theme  :ensure t :defer t)
 (use-package doom-themes :ensure t :defer t) ;; :custom-face ;; (org-level-1 ((t (:slant italic))))))
 (use-package eziam-theme :ensure t :defer t)
 (use-package gotham-theme :ensure t :defer t)
