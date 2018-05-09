@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Iosevka Term Slab 14")
+(set-face-attribute 'default nil :family "Operator Mono" :height 140)
 ;; (set-face-attribute 'default nil :font "Share Tech Mono 16")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
@@ -171,15 +171,31 @@
   (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
 
+(use-package evil
+  :ensure t
+  :config
+  (setq evil-move-cursor-back nil)
+  (evil-mode)
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode)))
+
 (use-package exec-path-from-shell
   :ensure t
   :config
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 
+;; Lang
 (require 'rtj-clojure)
 (require 'rtj-lisp)
 (require 'rtj-racket)
+
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'")
 
 (use-package smartparens
   :ensure t
@@ -286,9 +302,10 @@
 
 (use-package markdown-mode
   :ensure t
+  :init
+  (setq markdown-header-scaling t)
   :config
-  (setq markdown-asymmetric-header t)
-  (setq markdown-header-scaling t))
+  (setq markdown-asymmetric-header t))
 
 (use-package rust-mode
   :ensure t
@@ -358,9 +375,11 @@
 ;;   (if arg
 ;;       (message )))
 
-(setq doom-one-padded-modeline t)
-(setq doom-org-special-tags t)
-(load-theme 'doom-one t)
-(doom-themes-org-config)
+;; (setq doom-one-padded-modeline t)
+;; (setq doom-org-special-tags t)
+(zerodark-setup-modeline-format)
+(load-theme 'zerodark t)
+;; (doom-themes-org-config)
+;; (zerodark-setup-modeline-format)
 
 (require 'rtj-ui)
