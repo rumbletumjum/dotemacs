@@ -2,7 +2,7 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :font "Iosevka Term Slab 14")
+(set-face-attribute 'default nil :family "Operator Mono" :height 140)
 ;; (set-face-attribute 'default nil :font "Share Tech Mono 16")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
