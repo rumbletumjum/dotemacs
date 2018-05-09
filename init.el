@@ -358,9 +358,11 @@
 ;;   (if arg
 ;;       (message )))
 
-(setq doom-one-padded-modeline t)
-(setq doom-org-special-tags t)
-(load-theme 'doom-one t)
-(doom-themes-org-config)
+;; (setq doom-one-padded-modeline t)
+;; (setq doom-org-special-tags t)
+(zerodark-setup-modeline-format)
+(load-theme 'zerodark t)
+;; (doom-themes-org-config)
+;; (zerodark-setup-modeline-format)
 
 (require 'rtj-ui)
