@@ -1,3 +1,7 @@
+(use-package rainbow-mode
+  :ensure t
+  :defer t)
+
 (use-package powerline
   :ensure t
   :config
