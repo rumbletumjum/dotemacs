@@ -1,3 +1,5 @@
+.mc-lists.el
+custom.el
 auto-save-list
 backups
 *~
