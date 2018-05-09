@@ -286,9 +286,10 @@
 
 (use-package markdown-mode
   :ensure t
+  :init
+  (setq markdown-header-scaling t)
   :config
-  (setq markdown-asymmetric-header t)
-  (setq markdown-header-scaling t))
+  (setq markdown-asymmetric-header t))
 
 (use-package rust-mode
   :ensure t
