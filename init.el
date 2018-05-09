@@ -171,15 +171,31 @@
   (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
 
+(use-package evil
+  :ensure t
+  :config
+  (setq evil-move-cursor-back nil)
+  (evil-mode)
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode)))
+
 (use-package exec-path-from-shell
   :ensure t
   :config
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 
+;; Lang
 (require 'rtj-clojure)
 (require 'rtj-lisp)
 (require 'rtj-racket)
+
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'")
 
 (use-package smartparens
   :ensure t
