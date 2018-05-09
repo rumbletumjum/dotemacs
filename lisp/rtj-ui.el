@@ -1,7 +1,12 @@
+(use-package rainbow-mode
+  :ensure t
+  :defer t)
+
 ;; (use-package powerline
 ;;   :ensure t
 ;;   :config
 ;;   (powerline-default-theme))
+
 
 ;;   (defun make-rect (color height width)
 ;;     "Create an XPM bitmap."
