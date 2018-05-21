@@ -2,8 +2,8 @@
 (setq mac-option-modifier 'super)
 
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :family "Operator Mono" :height 140)
-;; (set-face-attribute 'default nil :font "Share Tech Mono 16")
+(set-face-attribute 'default nil :family "IBM Plex Mono" :height 140 :weight 'normal)
+;; (set-face-attribute 'default nil :font "Input Mono Condensed 16")
 
 (setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
@@ -161,9 +161,18 @@
   :ensure t
   :bind (("C-;" . avy-goto-char-timer)))
 
+(use-package golden-ratio
+  :ensure t
+  :diminish golden-ratio-mode
+  :config
+  (golden-ratio-mode)
+  (add-to-list 'golden-ratio-extra-commands 'rtj/windows))
+
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window))
+  :init
+  (setq aw-scope 'frame)
   :config
   ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
   ;; (setq aw-dispatch-always t)
@@ -175,7 +184,7 @@
   :ensure t
   :config
   (setq evil-move-cursor-back nil)
-  (evil-mode)
+  ;; (evil-mode)
 
   (use-package evil-surround
     :ensure t
@@ -190,8 +199,12 @@
 
 ;; Lang
 (require 'rtj-clojure)
+(require 'rtj-elixir)
+(require 'rtj-haskell)
 (require 'rtj-lisp)
 (require 'rtj-racket)
+(require 'rtj-rust)
+(require 'rtj-scala)
 
 (use-package js2-mode
   :ensure t
@@ -234,22 +247,20 @@
 (use-package multiple-cursors
   :ensure t)
 
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :config
-  (golden-ratio-mode))
 
 (use-package org-bullets
   :ensure t
   :commands (org-bullets-mode)
   :init
   (setq org-bullets-bullet-list
-        '("#"))
+        '("○"))
   :hook (org-mode . org-bullets-mode))
 
 (setq org-capture-templates
-      '(("l" "A link, for reading later." entry
+      '(("c" "Quick Capture Today" checkitem
+         (file+olp+datetree "~/Desktop/today.org")
+         "+ [ ] %?")
+        ("l" "A link, for reading later." entry
          (file+headline "notes.org" "Reading List")
          "** %:description\n%:link\n%u"
          :empty-lines 1)
@@ -259,6 +270,7 @@
         ("j" "Journal entry" entry
          (file+olp+datetree "~/Desktop/journal.org")
          "* %?\n%U")))
+
 (require 'org-protocol)
 
 ;; (use-package spaceline
@@ -306,10 +318,6 @@
   (setq markdown-header-scaling t)
   :config
   (setq markdown-asymmetric-header t))
-
-(use-package rust-mode
-  :ensure t
-  :defer t)
 
 (use-package deft
   :ensure t
@@ -380,6 +388,8 @@
 (zerodark-setup-modeline-format)
 (load-theme 'zerodark t)
 ;; (doom-themes-org-config)
-;; (zerodark-setup-modeline-format)
+
 
 (require 'rtj-ui)
+;; (require 'rtj-modeline)
+(require 'rtj-company)

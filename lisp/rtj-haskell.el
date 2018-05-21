@@ -1,7 +1,9 @@
 (use-package haskell-mode
   :ensure t
-  :mode "\\.hs\\'"
-  :config
-  (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+  :commands haskell-mode)
+
+;; (use-package intero
+;;   :ensure t
+;;   :hook (haskell-mode . intero-mode))
 
 (provide 'rtj-haskell)

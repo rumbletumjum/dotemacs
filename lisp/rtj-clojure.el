@@ -1,5 +1,6 @@
 (use-package clojure-mode
-  :ensure clojure-mode-extra-font-locking)
+  :ensure clojure-mode-extra-font-locking
+  :commands clojure-mode)
 
 (use-package cider
   :ensure t
