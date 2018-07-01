@@ -202,6 +202,7 @@
 ;; Lang
 (require 'rtj-clojure)
 (require 'rtj-elixir)
+(require 'rtj-fish)
 (require 'rtj-haskell)
 (require 'rtj-lisp)
 (require 'rtj-racket)
@@ -356,6 +357,10 @@
 (require 'rtj-binds)
 (require 'rtj-hydras)
 
+(require 'rtj-ui)
+(require 'rtj-company)
+
+(load-theme 'leuven t)
                                     
 ;; (use-package helm
 ;;   :ensure t
@@ -373,27 +378,5 @@
 ;;     (if ))
 ;;    (t (ace-window 1))))
 
-
-
 ;; (put 'dired-find-alternate-file 'disabled nil)
 
-;; (defun rtj/binds-M-o (arg)
-;;   (interactive)
-;;   (cond ((= 1 (count-windows))
-;;         (windows/split-window-right-and-focus))))
-
-;; (defun rtj--binds-M-o-2 (arg)
-;;   (interactive "p")
-;;   (if arg
-;;       (message )))
-
-;; (setq doom-one-padded-modeline t)
-;; (setq doom-org-special-tags t)
-(zerodark-setup-modeline-format)
-(load-theme 'zerodark t)
-;; (doom-themes-org-config)
-
-
-(require 'rtj-ui)
-;; (require 'rtj-modeline)
-(require 'rtj-company)
