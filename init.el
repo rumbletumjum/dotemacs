@@ -210,7 +210,9 @@
 
 (use-package js2-mode
   :ensure t
-  :mode "\\.js\\'")
+  :mode "\\.js\\'"
+  :config
+  (setq js2-strict-missing-semi-warning nil))
 
 (use-package smartparens
   :ensure t
