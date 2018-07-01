@@ -1,5 +1,6 @@
 (use-package slime
   :ensure t
+  :commands slime 
   :config
   ;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
   (setq slime-lisp-implementations

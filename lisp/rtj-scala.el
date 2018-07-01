@@ -1,4 +1,5 @@
 (use-package scala-mode
-  :ensure t)
+  :ensure t
+  :commands scala-mode)
 
 (provide 'rtj-scala)
