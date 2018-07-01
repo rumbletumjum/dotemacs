@@ -1,15 +1,13 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-;; (add-to-list 'default-frame-alist '(font . "Iosevka Term 14"))
-(set-face-attribute 'default nil :family "IBM Plex Mono" :height 140 :weight 'normal)
-;; (set-face-attribute 'default nil :font "Input Mono Condensed 16")
+(set-face-attribute 'default nil :font "Iosevka Slab Type 16")
+
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist
              '(ns-appearance . dark))
 
-(setq default-frame-alist '((ns-transparent-titlebar . t) (ns-appearance . 'nil)))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
