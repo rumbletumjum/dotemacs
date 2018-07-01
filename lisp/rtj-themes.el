@@ -20,6 +20,7 @@
 (use-package rebecca-theme :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
 (use-package spacemacs-theme :ensure t :defer t)
+(use-package sublime-themes :ensure t :defer t)
 (use-package tao-theme :ensure t :defer t)
 (use-package zerodark-theme :ensure t :defer t)
 
