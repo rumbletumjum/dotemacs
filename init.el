@@ -1,13 +1,14 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Iosevka Slab Type 16")
+(set-face-attribute 'default nil :font "Fira Code 14")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist
              '(ns-appearance . dark))
 
+(mac-auto-operator-composition-mode t)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
