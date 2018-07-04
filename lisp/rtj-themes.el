@@ -3,6 +3,7 @@
   (mapcar #'disable-theme custom-enabled-themes)
   (load-theme theme-name t))
 
+(use-package base16-theme :ensure t :defer t)
 (use-package challenger-deep-theme :ensure t :defer t)
 (use-package color-theme-sanityinc-tomorrow :ensure t :defer t)
 (use-package creamsody-theme  :ensure t :defer t)
@@ -10,6 +11,7 @@
 (use-package dracula-theme  :ensure t :defer t)
 (use-package doom-themes :ensure t :defer t) ;; :custom-face ;; (org-level-1 ((t (:slant italic))))))
 (use-package eziam-theme :ensure t :defer t)
+(use-package farmhouse-theme :ensure t :defer t)
 (use-package gotham-theme :ensure t :defer t)
 (use-package graphene-meta-theme :ensure t :defer t)
 (use-package gruvbox-theme :ensure t :defer t)
@@ -21,8 +23,11 @@
 (use-package rebecca-theme :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
 (use-package spacemacs-theme :ensure t :defer t)
+(use-package subatomic-theme :ensure t :defer t)
 (use-package sublime-themes :ensure t :defer t)
 (use-package tao-theme :ensure t :defer t)
+(use-package ujelly-theme :ensure t :defer t)
+(use-package zenburn-theme :ensure t :defer t)
 (use-package zerodark-theme :ensure t :defer t)
 
 (provide 'rtj-themes)
