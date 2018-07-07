@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Fira Code 14")
+(set-face-attribute 'default nil :font "IBM Plex Mono 14")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
@@ -361,7 +361,7 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'leuven t)
+(load-theme 'base16-icy t)
                                     
 ;; (use-package helm
 ;;   :ensure t
