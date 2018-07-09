@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "IBM Plex Mono 14")
+(set-face-attribute 'default nil :font "PT Mono 14")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
