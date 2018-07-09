@@ -361,7 +361,7 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'base16-icy t)
+(load-theme 'leuven t)
                                     
 ;; (use-package helm
 ;;   :ensure t
