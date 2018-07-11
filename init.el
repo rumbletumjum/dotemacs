@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Iosevka Term 12")
+(set-face-attribute 'default nil :font "Fira Code 12")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
@@ -362,7 +362,7 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'leuven t)
+(load-theme 'spacemacs-light t)
                                     
 ;; (use-package helm
 ;;   :ensure t
