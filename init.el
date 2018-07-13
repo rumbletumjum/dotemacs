@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Fira Code 12")
+(set-face-attribute 'default nil :font "Triplicate t4c 14")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
