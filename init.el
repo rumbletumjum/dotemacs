@@ -362,7 +362,7 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'spacemacs-light t)
+(load-theme 'dichromacy t)
                                     
 ;; (use-package helm
 ;;   :ensure t
