@@ -55,7 +55,7 @@
 
 (defun rtj/reset-theme ()
   (interactive)
-  (mapcar #'disable-theme custom-enabled-themes ))
+  (mapc #'disable-theme custom-enabled-themes ))
 
 (defun my-ibuffer-stale-p (&optional noconfirm)
   (frame-or-buffer-changed-p 'ibuffer-auto-buffers-changed))

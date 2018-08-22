@@ -8,6 +8,8 @@
 (add-to-list 'default-frame-alist
              '(ns-appearance . light))
 
+(if (eq (window-system) 'mac)  
+    (mac-auto-operator-composition-mode t))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -360,7 +362,7 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'leuven t)
+(load-theme 'dichromacy t)
                                     
 ;; (use-package helm
 ;;   :ensure t
