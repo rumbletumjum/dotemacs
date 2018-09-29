@@ -222,6 +222,9 @@
 
 (use-package smartparens
   :ensure t
+  :init
+  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
+  (add-hook 'racket-mode-hook #'smartparens-strict-mode)
   :config
   (require 'smartparens-config)
   (setq sp-base-key-bindings 'paredit)
@@ -385,3 +388,4 @@
 
 ;; (put 'dired-find-alternate-file 'disabled nil)
 
+(smartparens-global-mode)
