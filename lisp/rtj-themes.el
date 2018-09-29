@@ -3,7 +3,6 @@
   (mapcar #'disable-theme custom-enabled-themes)
   (load-theme theme-name t))
 
-(use-package base16-theme :ensure t :defer t)
 (use-package challenger-deep-theme :ensure t :defer t)
 (use-package color-theme-sanityinc-tomorrow :ensure t :defer t)
 (use-package creamsody-theme  :ensure t :defer t)

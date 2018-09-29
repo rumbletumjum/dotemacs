@@ -20,6 +20,7 @@
 (defun rtj/package-init ()
   "Set package archives and initialize package system."
   (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                           ("melpa-stable" . "https://stable.melpa.org/packages/")
   			   ("melpa" . "https://melpa.org/packages/")
   			   ("org" . "https://orgmode.org/elpa/")))
 
