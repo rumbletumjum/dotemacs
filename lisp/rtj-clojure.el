@@ -1,9 +1,8 @@
 (use-package clojure-mode
-  :ensure clojure-mode-extra-font-locking
-  :commands clojure-mode)
+  :ensure clojure-mode-extra-font-locking)
 
 (use-package cider
-  :ensure t
-  :commands (cider-jack-in))
+  :ensure t)
+  
 
 (provide 'rtj-clojure)
