@@ -1,12 +1,12 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Monaco 12")
+(set-face-attribute 'default nil :font "OperatorMono Nerd Font 14")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist
-             '(ns-appearance . light))
+             '(ns-appearance . dark))
 
 (if (eq (window-system) 'mac)  
     (mac-auto-operator-composition-mode t))
@@ -362,7 +362,7 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'dichromacy t)
+(load-theme 'doom-one t)
                                     
 ;; (use-package helm
 ;;   :ensure t
