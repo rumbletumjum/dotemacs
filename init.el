@@ -208,6 +208,7 @@
 (require 'rtj-go)
 (require 'rtj-haskell)
 (require 'rtj-lisp)
+(require 'rtj-lua)
 (require 'rtj-racket)
 (require 'rtj-rust)
 (require 'rtj-scala)
