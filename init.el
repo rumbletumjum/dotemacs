@@ -205,6 +205,7 @@
 (require 'rtj-clojure)
 (require 'rtj-elixir)
 (require 'rtj-fish)
+(require 'rtj-go)
 (require 'rtj-haskell)
 (require 'rtj-lisp)
 (require 'rtj-racket)
