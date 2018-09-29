@@ -212,6 +212,7 @@
 (require 'rtj-racket)
 (require 'rtj-rust)
 (require 'rtj-scala)
+(require 'rtj-sml)
 
 (use-package js2-mode
   :ensure t
