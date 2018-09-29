@@ -339,7 +339,7 @@
   :config (setq deft-directory "~/Dropbox/org"
                 deft-extensions '("org")))
 
-(setq explicit-shell-file-name "/usr/local/bin/zsh")
+(setq explicit-shell-file-name "/usr/local/bin/fish")
 
 (use-package ibuffer
   :commands ibuffer
