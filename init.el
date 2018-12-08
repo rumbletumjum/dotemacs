@@ -202,6 +202,13 @@
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 
+(use-package magit
+  :ensure t
+  :commands magit-get-top-dir
+  :bind (("C-c g" . magit-status)
+         ("C-c C-g l" . magit-file-log)
+         ("C-c f" . magit-grep)))
+
 ;; Lang
 (require 'rtj-clojure)
 (require 'rtj-elixir)
