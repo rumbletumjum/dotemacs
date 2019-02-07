@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "OperatorMono Nerd Font 14")
+(set-face-attribute 'default nil :font "Iosevka 14")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
@@ -335,10 +335,11 @@
 
 (use-package markdown-mode
   :ensure t
-  :init
-  (setq markdown-header-scaling t)
-  :config
-  (setq markdown-asymmetric-header t))
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode))
+  :init (setq markdown-header-scaling t)
+  :config (setq markdown-asymmetric-header t))
 
 (use-package deft
   :ensure t
@@ -376,7 +377,10 @@
 (require 'rtj-ui)
 (require 'rtj-company)
 
-(load-theme 'doom-one t)
+(load-theme 'doneburn t)
+;; (setq doom-themes-enable-bold)
+;;       doom-themes-enable-italic)
+(doom-themes-org-config)
                                     
 ;; (use-package helm
 ;;   :ensure t
