@@ -372,10 +372,13 @@
                                      (name . "^\\*Messages\\*$")))))))))
 
 (require 'rtj-binds)
+
 (require 'rtj-hydras)
 
 (require 'rtj-ui)
+
 (require 'rtj-company)
+(require 'rtj-projectile)
 
 (load-theme 'doneburn t)
 ;; (setq doom-themes-enable-bold)
