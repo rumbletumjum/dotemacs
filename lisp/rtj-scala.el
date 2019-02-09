@@ -6,10 +6,12 @@
 (use-package ensime
   :ensure t
   :pin melpa-stable
-  :hook (scala-mode . ensime))
+  :hook (scala-mode . ensime)
+  :config
+  (setq ensime-startup-notification nil))
 
 (use-package sbt-mode
   :ensure t
-  :pin melpa)
+  :pin melpa-stable)
 
 (provide 'rtj-scala)
