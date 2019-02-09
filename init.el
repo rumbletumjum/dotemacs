@@ -380,7 +380,7 @@
 (require 'rtj-company)
 (require 'rtj-projectile)
 
-(load-theme 'doneburn t)
+(load-theme 'doom-solarized-light t)
 ;; (setq doom-themes-enable-bold)
 ;;       doom-themes-enable-italic)
 (doom-themes-org-config)
