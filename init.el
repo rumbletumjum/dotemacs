@@ -24,10 +24,6 @@
   			   ("melpa" . "https://melpa.org/packages/")
   			   ("org" . "https://orgmode.org/elpa/")))
 
-  ;; (setq package-archives '(("gnu" . "~/elpa-mirror/gnu/")
-  ;;       		   ("melpa" . "~/elpa-mirror/melpa/")
-  ;;       		   ("org" . "~/elpa-mirror/org/")))
-
   (setq package-archive-priorities '(("org" . 3)
                                      ("melpa" . 2)
                                      ("gnu" . 1)))
