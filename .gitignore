@@ -72,3 +72,6 @@ flycheck_*.el
 dired+.el
 smex-items
 bookmarks
+
+# ?
+transient/
