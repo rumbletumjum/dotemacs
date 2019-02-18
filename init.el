@@ -161,17 +161,16 @@
   ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
   (counsel-mode))
 
-
 (use-package avy
   :ensure t
   :bind (("C-;" . avy-goto-char-timer)))
 
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :config
-  (golden-ratio-mode)
-  (add-to-list 'golden-ratio-extra-commands 'rtj/windows))
+;; (use-package golden-ratio
+;;   :ensure t
+;;   :diminish golden-ratio-mode
+;;   :config
+;;   (golden-ratio-mode)
+;;   (add-to-list 'golden-ratio-extra-commands 'rtj/windows))
 
 (use-package ace-window
   :ensure t
@@ -182,7 +181,7 @@
   ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
   ;; (setq aw-dispatch-always t)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?k ?l))
-  (add-to-list 'golden-ratio-extra-commands 'ace-window)
+  ;; (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
 
 (use-package evil
