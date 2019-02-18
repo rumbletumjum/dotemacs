@@ -45,7 +45,6 @@
     (require 'use-package)
     (setq use-package-verbose t))
 
-
   (use-package diminish
     :ensure t))
 
@@ -58,11 +57,8 @@
 (require 'rtj-themes)
 (require 'rtj-ui)
 
-
 (defaults/shorten-yes-or-no)
-
 (setq-default indent-tabs-mode nil)
-
 (delete-selection-mode)
 
 ;; (setq auto-save-default nil)
@@ -96,16 +92,12 @@
 ;;                       (lambda ()
 ;;                         (local-set-key (kbd "r" 'ibuffer-update))))))
 
-
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode)
     (funcall mode -1)))
 
 (setq ring-bell-function 'ignore)
-
-
 ;; (add-hook 'emacs-lisp-mode-hook #'xref-etags-mode)
-
 
 (use-package recentf
   :config
