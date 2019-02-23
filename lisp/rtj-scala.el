@@ -6,7 +6,6 @@
 (use-package ensime
   :ensure t
   :pin melpa-stable
-  :hook (scala-mode . ensime)
   :config
   (setq ensime-startup-notification nil))
 
