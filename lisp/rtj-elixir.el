@@ -3,6 +3,7 @@
   :commands elixir-mode)
 
 (use-package alchemist
-  :ensure t)
+  :ensure t
+  :commands alchemist-mode)
 
 (provide 'rtj-elixir)

@@ -5,6 +5,7 @@
 
 (use-package ensime
   :ensure t
+  :commands (ensime ensime-mode)
   :pin melpa-stable
   :config
   (setq ensime-startup-notification nil))
