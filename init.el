@@ -173,6 +173,7 @@
 
 (use-package evil
   :ensure t
+  :commands evil-mode
   :config
   (setq evil-move-cursor-back nil)
   ;; (evil-mode)
