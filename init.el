@@ -222,10 +222,10 @@
   (add-hook 'racket-mode-hook #'smartparens-strict-mode)
   :config
   (require 'smartparens-config)
-  (setq sp-base-key-bindings 'paredit)
-  (setq sp-autoskip-closing-pair 'always)
-  (setq sp-hybrid-kill-entire-symbol nil)
-  (sp-use-paredit-bindings))
+  (progn (setq sp-base-key-bindings 'paredit
+               sp-autoskip-closing-pair 'always
+               sp-hybrid-kill-entire-symbol nil)
+         (sp-use-paredit-bindings)))
 
 
 (use-package rainbow-delimiters
