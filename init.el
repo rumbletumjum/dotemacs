@@ -391,3 +391,8 @@
 ;; (put 'dired-find-alternate-file 'disabled nil)
 
 (smartparens-global-mode)
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config (setq doom-modeline-height 20))
