@@ -367,7 +367,7 @@
 (require 'rtj-company)
 (require 'rtj-projectile)
 
-(load-theme 'doom-solarized-light t)
+(load-theme 'nordless t)
 ;; (setq doom-themes-enable-bold)
 ;;       doom-themes-enable-italic)
 (doom-themes-org-config)
