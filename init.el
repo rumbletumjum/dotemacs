@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Iosevka 14")
+(set-face-attribute 'default nil :font "Iosevka Pragmata 16")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
@@ -399,3 +399,9 @@
   :ensure t
   :hook (after-init . doom-modeline-mode)
   :config (setq doom-modeline-height 20))
+
+(use-package tex
+  :ensure auctex)
+
+(use-package color-identifiers-mode
+  :ensure t)
