@@ -1,4 +1,5 @@
 (use-package clojure-mode
+  :mode ("\\.clj\\'" . clojure-mode)
   :ensure clojure-mode-extra-font-locking)
 
 (use-package cider

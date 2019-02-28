@@ -12,6 +12,7 @@
 
 (use-package sbt-mode
   :ensure t
+  :commands (sbt-mode)
   :pin melpa-stable)
 
 (provide 'rtj-scala)
