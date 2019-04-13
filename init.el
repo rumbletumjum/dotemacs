@@ -1,7 +1,7 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Iosevka Pragmata 16")
+(set-face-attribute 'default nil :font "Triplicate t4c 16")
 
 (add-to-list 'default-frame-alist
              '(ns-transparent-titlebar . t))
@@ -227,9 +227,11 @@
                sp-autoskip-closing-pair 'always
                sp-hybrid-kill-entire-symbol nil)
          (sp-use-paredit-bindings)
+         (sp-pair "{" nil
+                  :post-handlers '(("||\n[i]" "RET")))
          (sp-local-pair 'rust-mode "{" nil
-               :post-handlers '(("||\n[i]" "RET")
-                                ("| " "SPC")))))
+                        :post-handlers '(("||\n[i]" "RET")
+                                         ("| " "SPC")))))
 
 
 (use-package rainbow-delimiters
