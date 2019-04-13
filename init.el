@@ -204,6 +204,7 @@
 (require 'rtj-haskell)
 (require 'rtj-lisp)
 (require 'rtj-lua)
+(require 'rtj-ocaml)
 (require 'rtj-racket)
 (require 'rtj-rust)
 (require 'rtj-scala)
@@ -370,7 +371,7 @@
 (require 'rtj-company)
 (require 'rtj-projectile)
 
-(load-theme 'nordless t)
+(load-theme 'doom-solarized-light t)
 ;; (setq doom-themes-enable-bold)
 ;;       doom-themes-enable-italic)
 (doom-themes-org-config)
