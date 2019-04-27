@@ -1,12 +1,15 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
-(set-face-attribute 'default nil :font "Triplicate t4c 16")
+;; (set-face-attribute 'default nil :font "Go Mono 14")
+;; (set-face-attribute 'default nil :font "PragmataPro 14")
+(set-face-attribute 'default nil :family "Anka/Coder Condensed" :height 140)
+;; (set-default-font "Anka//Coder 14")
 
-(add-to-list 'default-frame-alist
-             '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist
-             '(ns-appearance . dark))
+;; (add-to-list 'default-frame-alist
+;;              '(ns-transparent-titlebar . t))
+;; (add-to-list 'default-frame-alist
+;;              '(ns-appearance . light))
 
 (if (eq (window-system) 'mac)  
     (mac-auto-operator-composition-mode t))
@@ -361,11 +364,12 @@
                            ("dired" (mode . dired-mode))
                            ("org" (mode . org-mode))
                            ("magit" (name . "\*magit"))
+                           ("rust" (mode . rust-mode))
                            ("emacs" (or
                                      (name . "^\\*scratch\\*$")
                                      (name . "^\\*Messages\\*$")))))))))
 
-(require 'rtj-binds)
+
 
 (require 'rtj-hydras)
 
@@ -374,7 +378,9 @@
 (require 'rtj-company)
 (require 'rtj-projectile)
 
-(load-theme 'doom-solarized-light t)
+(progn
+  (setq acme-theme-more-syntax-hl t)
+  (load-theme 'acme t))
 ;; (setq doom-themes-enable-bold)
 ;;       doom-themes-enable-italic)
 (doom-themes-org-config)
