@@ -103,4 +103,11 @@
   (interactive "p")
   (message "%s" arg))
 
+(defun dash-thing ()
+  (interactive)
+  (insert ";;")
+  (dotimes (i 12)
+    (insert #x2015))
+  (insert "\n"))
+
 (provide 'rtj-fns)

@@ -48,7 +48,8 @@
 ;; (setq use-package-verbose t)
 (rtj/bootstrap-use-package)
 
-(require 'rtj-fns)
+;; (require 'rtj-fns)
+(require 'rtj-binds)
 (require 'rtj-windows)
 (require 'rtj-themes)
 (require 'rtj-ui)
