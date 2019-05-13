@@ -3,7 +3,8 @@
   :commands haskell-mode)
 
 (use-package intero
-  :ensure t)
+  :ensure t
+  :defer t)
 ;;  :hook (haskell-mode . intero-mode))
 
 (use-package hindent
