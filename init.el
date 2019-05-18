@@ -11,7 +11,7 @@
   (add-to-list 'default-frame-alist
                '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist
-               '(ns-appearance . light)))
+               '(ns-appearance . dark)))
 
 (when (eq window-system 'mac)
   (mac-auto-operator-composition-mode t))
@@ -61,7 +61,7 @@
 ;; (require 'rtj-fns)
 ;; (require 'rtj-binds)
 ;; (require 'rtj-windows)
-;; (require 'rtj-themes)
+(require 'rtj-themes)
 ;; (require 'rtj-ui)
 
 ;; (defaults/shorten-yes-or-no)
@@ -114,89 +114,89 @@
 
 ;; (add-hook 'emacs-lisp-mode-hook #'xref-etags-mode)
 
-;; (use-package recentf
-;;   :config
-;;   (setq recentf-max-saved-items 500
-;; 	recentf-max-menu-items 15
-;; 	recentf-auto-cleanup 'never)
-;;   (recentf-mode))
+(use-package recentf
+  :config
+  (setq recentf-max-saved-items 500
+	recentf-max-menu-items 15
+	recentf-auto-cleanup 'never)
+  (recentf-mode))
 
-;; (use-package smex
-;;   :ensure t)
+(use-package smex
+  :ensure t)
 
-;; (use-package ivy
-;;   :ensure t
-;;   :diminish ivy-mode
-;;   :config
-;;   (progn
-;;     (setq ivy-use-virtual-buffers t)
-;;     (setq ivy-count-format "(%d/%d) ")
-;;     (setq ivy-enable-recursive-minibuffers t)
-;;     (setq ivy-re-builders-alist
-;;           '((swiper . ivy--regex-plus)
-;;             (t . ivy--regex-fuzzy)))
-;;     (setq ivy-initial-inputs-alist nil)
-;;     (ivy-mode)))
+(use-package ivy
+  :ensure t
+  :diminish ivy-mode
+  :config
+  (progn
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-enable-recursive-minibuffers t)
+    (setq ivy-re-builders-alist
+          '((swiper . ivy--regex-plus)
+            (t . ivy--regex-fuzzy)))
+    (setq ivy-initial-inputs-alist nil)
+    (ivy-mode)))
 
 ;; (use-package ivy-rich
 ;;   :config
 ;;   (ivy-rich-mode t)
 ;;   (setq ivy-rich-path-style 'abbrev))
 
-;; (use-package flx
-;;   :ensure t)
+(use-package flx
+  :ensure t)
 
-;; (use-package hydra
-;;   :ensure t)
+(use-package hydra
+  :ensure t)
 
-;; (use-package ivy-hydra
-;;   :ensure t)
+(use-package ivy-hydra
+  :ensure t)
 
-;; (use-package swiper
-;;   :ensure t
-;;   :config
-;;   (global-set-key (kbd "C-s") 'swiper))
+(use-package swiper
+  :ensure t
+  :config
+  (global-set-key (kbd "C-s") 'swiper))
 
-;; (use-package counsel
-;;   ;; :bind (("M-x" . counsel-M-x)
-;;   ;;        ("C-h f" . counsel-describe-function)
-;;   :bind (("C-c t" . counsel-load-theme)
-;;          ("M-x" . counsel-M-x)
-;;          ("C-h a" . counsel-apropos)
-;;          ("C-x C-b". counsel-ibuffer)
-;;          ("M-y" . counsel-yank-pop)
-;;          :map ivy-minibuffer-map
-;;          ("M-y" . ivy-next-line))
-;;   :ensure t
-;;   :diminish counsel-mode
-;;   :config
-;;   ;; (global-set-key (kbd "C-h v") 'counsel-describe-variable)
-;;   ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;;   ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
-;;   (counsel-mode))
+(use-package counsel
+  ;; :bind (("M-x" . counsel-M-x)
+  ;;        ("C-h f" . counsel-describe-function)
+  :bind (("C-c t" . counsel-load-theme)
+         ("M-x" . counsel-M-x)
+         ("C-h a" . counsel-apropos)
+         ("C-x C-b". counsel-ibuffer)
+         ("M-y" . counsel-yank-pop)
+         :map ivy-minibuffer-map
+         ("M-y" . ivy-next-line))
+  :ensure t
+  :diminish counsel-mode
+  :config
+  ;; (global-set-key (kbd "C-h v") 'counsel-describe-variable)
+  ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  ;; (global-set-key (kbd "C-x C-r") 'counsel-recentf)
+  (counsel-mode))
 
 ;; (use-package avy
 ;;   :ensure t
 ;;   :bind (("C-;" . avy-goto-char-timer)))
 
-;; (use-package golden-ratio
-;;   :ensure t
-;;   :diminish golden-ratio-mode
-;;   :config
-;;   (golden-ratio-mode)
-;;   (add-to-list 'golden-ratio-extra-commands 'rtj/windows))
+(use-package golden-ratio
+  :ensure t
+  :diminish golden-ratio-mode
+  :config
+  (golden-ratio-mode)
+  (add-to-list 'golden-ratio-extra-commands 'rtj/windows))
 
-;; (use-package ace-window
-;;   :ensure t
-;;   :bind (("M-o" . ace-window))
-;;   :init
-;;   (setq aw-scope 'frame)
-;;   :config
-;;   ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
-;;   ;; (setq aw-dispatch-always t)
-;;   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?k ?l))
-;;   ;; (add-to-list 'golden-ratio-extra-commands 'ace-window)
-;;   (global-unset-key (kbd "C-x o")))
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window))
+  :init
+  (setq aw-scope 'frame)
+  :config
+  ;; (set-face-attribute 'aw-leading-char-face nil :foreground "#268bd2" :weight 'bold :height 3.0)
+  ;; (setq aw-dispatch-always t)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?k ?l))
+  ;; (add-to-list 'golden-ratio-extra-commands 'ace-window)
+  (global-unset-key (kbd "C-x o")))
 
 ;; (use-package evil
 ;;   :ensure t
@@ -216,12 +216,12 @@
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 
-;; (use-package magit
-;;   :ensure t
-;;   :commands magit-get-top-dir
-;;   :bind (("C-c g" . magit-status)
-;;          ("C-c C-g l" . magit-file-log)
-;;          ("C-c f" . magit-grep)))
+(use-package magit
+  :ensure t
+  :commands magit-get-top-dir
+  :bind (("C-c g" . magit-status)
+         ("C-c C-g l" . magit-file-log)
+         ("C-c f" . magit-grep)))
 
 ;; Lang
 ;; (require 'rtj-clojure)
@@ -243,36 +243,36 @@
 ;;   :config
 ;;   (setq js2-strict-missing-semi-warning nil))
 
-;; (use-package smartparens
-;;   :ensure t
-;;   :init
-;;   (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
-;;   (add-hook 'racket-mode-hook #'smartparens-strict-mode)
-;;   ;; (add-hook 'emacs-lisp-mode-hook #'smartparens-strict-mode)
-;;   :config
-;;   (require 'smartparens-config)
-;;   (smartparens-global-mode t)
-;;   (show-smartparens-global-mode t)
-;;   (progn
-;;     (setq sp-base-key-bindings 'paredit
-;;                sp-autoskip-closing-pair 'always
-;;                sp-hybrid-kill-entire-symbol nil)
-;;     (sp-use-paredit-bindings)
-;;     (sp-pair "{" nil
-;;              :post-handlers '(("||\n[i]" "RET")))
-;;     (sp-local-pair 'rust-mode "{" nil
-;;                    :post-handlers '(("||\n[i]" "RET")
-;;                                     ("| " "SPC")))))
+(use-package smartparens
+  :ensure t
+  :init
+  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
+  (add-hook 'racket-mode-hook #'smartparens-strict-mode)
+  ;; (add-hook 'emacs-lisp-mode-hook #'smartparens-strict-mode)
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode t)
+  (show-smartparens-global-mode t)
+  (progn
+    (setq sp-base-key-bindings 'paredit
+               sp-autoskip-closing-pair 'always
+               sp-hybrid-kill-entire-symbol nil)
+    (sp-use-paredit-bindings)
+    (sp-pair "{" nil
+             :post-handlers '(("||\n[i]" "RET")))
+    (sp-local-pair 'rust-mode "{" nil
+                   :post-handlers '(("||\n[i]" "RET")
+                                    ("| " "SPC")))))
 
-;; (use-package rainbow-delimiters
-;;   :ensure t
-;;   :hook (((prog-mode cider-repl-mode) . rainbow-delimiters-mode)))
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (((prog-mode cider-repl-mode) . rainbow-delimiters-mode)))
 
-;; (use-package which-key
-;;   :ensure t
-;;   :diminish
-;;   :config
-;;   (which-key-mode))
+(use-package which-key
+  :ensure t
+  :diminish
+  :config
+  (which-key-mode))
 
 ;; (use-package osx-trash
 ;;   :ensure t
@@ -291,17 +291,17 @@
 ;; (use-package multiple-cursors
 ;;   :ensure t)
 
-;; (use-package org
-;;   :config
-;;   (setq org-startup-indented t))
+(use-package org
+  :config
+  (setq org-startup-indented t))
 
-;; (use-package org-bullets
-;;   :ensure t
-;;   :commands (org-bullets-mode)
-;;   :init
-;;   (setq org-bullets-bullet-list
-;;         '("○"))
-;;   :hook (org-mode . org-bullets-mode))
+(use-package org-bullets
+  :ensure t
+  :commands (org-bullets-mode)
+  :init
+  (setq org-bullets-bullet-list
+        '("○"))
+  :hook (org-mode . org-bullets-mode))
 
 ;; (setq org-capture-templates
 ;;       '(("c" "Quick Capture Today" checkitem
@@ -407,8 +407,13 @@
 ;; (require 'rtj-company)
 ;; (require 'rtj-projectile)
 
-(load-theme 'tsdh-light t)
+;; (load-theme 'tsdh-light t)
 
+(progn
+  (load-theme 'doom-one t)
+  (doom-themes-org-config)
+  (setq doom-themes-enable-bold
+        doom-themes-enable-italic))
 ;; (setq doom-themes-enable-bold)
 ;;       doom-themes-enable-italic)
 ;; (doom-themes-org-config)
@@ -433,10 +438,10 @@
 
 ;; (smartparens-global-mode)
 
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :hook (after-init . doom-modeline-mode)
-;;   :config (setq doom-modeline-height 20))
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config (setq doom-modeline-height 20))
 
 ;; (use-package tex
 ;;   :ensure auctex)
@@ -467,15 +472,15 @@
 ;;               (setq mode-name "erl"
 ;;                     erlang-root-dir "/usr/local/lib/erlang"))))
 
-;; (use-package undo-tree
-;;   :diminish undo-tree-mode
-;;   :init
-;;   (progn
-;;     (global-undo-tree-mode)
-;;     (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/tmp/undo"))
-;;           undo-tree-auto-save-history t
-;;           undo-tree-visualizer-timestamps t
-;;           undo-tree-visualizer-diff t)))
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :init
+  (progn
+    (global-undo-tree-mode)
+    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/tmp/undo"))
+          undo-tree-auto-save-history t
+          undo-tree-visualizer-timestamps t
+          undo-tree-visualizer-diff t)))
 
 ;; (use-package neotree
 ;;   :bind (("<f8>" . neotree-toggle))
