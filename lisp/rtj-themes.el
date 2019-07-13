@@ -1,7 +1,28 @@
+(defvar rtj/theme-hooks nil
+  "((theme-id . function) ...)")
+
 (defun rtj/switch-theme (theme-name)
   (interactive)
   (mapcar #'disable-theme custom-enabled-themes)
   (load-theme theme-name t))
+
+(defun rtj/add-theme-hook (theme-id hook-func)
+  (add-to-list 'rtj/theme-hooks (cons theme-id hook-func)))
+
+;; advise load-theme to disable other themes and look for any hooks defined for theme
+;; hooks can be added by use-package call for theme to customize theme on the fly
+;; see http://www.greghendershott.com/2017/02/emacs-themes.html
+(defun rtj/load-theme-advice  (f theme-id &optional no-confirm no-enable &rest args)
+  (unless no-enable
+    (rtj/reset-theme))
+  (prog1
+      (apply f theme-id no-confirm no-enable args)
+    (unless no-enable
+      (pcase (assq theme-id rtj/theme-hooks)
+        (`(,_ . ,f) (funcall f))))))
+
+(advice-add 'load-theme
+            :around #'rtj/load-theme-advice)
 
 (use-package brutalist-theme :ensure t :defer t)
 (use-package challenger-deep-theme :ensure t :defer t)
