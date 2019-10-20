@@ -2,12 +2,14 @@
       gc-cons-percentage 0.6)
 ;; (set-face-attribute 'default nil :font "Go Mono 14")
 ;;(set-face-attribute 'default nil :font "Inconsolata 18")
-(set-face-attribute 'default nil :family "Iosevka" :height 120)
+(set-face-attribute 'default nil :family "Consolas" :height 150)
 ;; (set-default-font Anka//Coder 14")
+
+(setq default-directory (getenv "HOME"))
 
 (when (memq window-system '(mac ns))
   (setq mac-command-modifier 'meta
-        mac-option-modifier'super)
+        mac-option-modifier  'super)
   (add-to-list 'default-frame-alist
                '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist
