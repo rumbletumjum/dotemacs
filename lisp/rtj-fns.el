@@ -53,10 +53,6 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-(defun rtj/reset-theme ()
-  (interactive)
-  (mapc #'disable-theme custom-enabled-themes ))
-
 (defun my-ibuffer-stale-p (&optional noconfirm)
   (frame-or-buffer-changed-p 'ibuffer-auto-buffers-changed))
 

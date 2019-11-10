@@ -6,6 +6,10 @@
   (mapcar #'disable-theme custom-enabled-themes)
   (load-theme theme-name t))
 
+(defun rtj/reset-theme ()
+  (interactive)
+  (mapc #'disable-theme custom-enabled-themes ))
+
 (defun rtj/add-theme-hook (theme-id hook-func)
   (add-to-list 'rtj/theme-hooks (cons theme-id hook-func)))
 
