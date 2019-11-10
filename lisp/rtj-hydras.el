@@ -9,4 +9,18 @@
 
 (global-set-key (kbd "<f2>") 'hydra-zoom/body)
 
+(defhydra hydra-themes (:hint nil :color pink)
+  "
+Themes
+
+^Doom^        ^Solarized^
+^^^^^^^-----------
+_o_: one-dark _l_: light
+"
+  ("o" (load-theme 'doom-one t))
+  ("l" (load-theme 'doom-solarized-light t))
+  ("RET" nil "done" :color blue))
+
+(global-set-key (kbd "C-c T") 'hydra-themes/body)
+
 (provide 'rtj-hydras)
