@@ -2,7 +2,7 @@
       gc-cons-percentage 0.6)
 ;; (set-face-attribute 'default nil :font "Go Mono 14")
 ;;(set-face-attribute 'default nil :font "Inconsolata 18")
-(set-face-attribute 'default nil :family "Consolas" :height 150)
+(set-face-attribute 'default nil :family "Menlo" :height 120)
 ;; (set-default-font Anka//Coder 14")
 
 (setq default-directory (getenv "HOME"))
@@ -30,7 +30,7 @@
   "Set package archives and initialize package system."
   (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                            ("melpa-stable" . "https://stable.melpa.org/packages/")
-  			   ("melpa" . "https://melpa.org/packages/")
+                           ("melpa" . "https://melpa.org/packages/")
   			   ("org" . "https://orgmode.org/elpa/")))
 
   (setq package-archive-priorities '(("org" . 3)
@@ -181,12 +181,14 @@
 ;;   :ensure t
 ;;   :bind (("C-;" . avy-goto-char-timer)))
 
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :config
-  (golden-ratio-mode)
-  (add-to-list 'golden-ratio-extra-commands 'rtj/windows))
+;; (use-package golden-ratio
+;;   :ensure t
+;;   :diminish golden-ratio-mode
+;;   :config
+;;   (setq golden-ratio-auto-scale nil)
+;;   (golden-ratio-mode)
+;;   (add-to-list 'golden-ratio-extra-commands 'rtj/windows)
+;;   (add-to-list 'golden-ratio-extra-commands 'ace-window))
 
 (use-package ace-window
   :ensure t
@@ -200,17 +202,17 @@
   ;; (add-to-list 'golden-ratio-extra-commands 'ace-window)
   (global-unset-key (kbd "C-x o")))
 
-;; (use-package evil
-;;   :ensure t
-;;   :commands evil-mode
-;;   :config
-;;   (setq evil-move-cursor-back nil)
-;;   ;; (evil-mode)
+(use-package evil
+  :ensure t
+  :commands evil-mode
+  :config
+  (setq evil-move-cursor-back nil)
+  ;; (evil-mode)
 
-;;   (use-package evil-surround
-;;     :ensure t
-;;     :config
-;;     (global-evil-surround-mode)))
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode)))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -226,17 +228,17 @@
          ("C-c f" . magit-grep)))
 
 ;; Lang
-;; (require 'rtj-clojure)
+(require 'rtj-clojure)
 ;; (require 'rtj-elixir)
 ;; (require 'rtj-fish)
 ;; (require 'rtj-go)
-;; (require 'rtj-haskell)
+(require 'rtj-haskell)
 ;; (require 'rtj-lisp)
 ;; (require 'rtj-lua)
 ;; (require 'rtj-ocaml)
 ;; (require 'rtj-racket)
-;; (require 'rtj-rust)
-;; (require 'rtj-scala)
+(require 'rtj-rust)
+(require 'rtj-scala)
 ;; (require 'rtj-sml)
 
 ;; (use-package js2-mode
@@ -257,8 +259,8 @@
   (show-smartparens-global-mode t)
   (progn
     (setq sp-base-key-bindings 'paredit
-               sp-autoskip-closing-pair 'always
-               sp-hybrid-kill-entire-symbol nil)
+          sp-autoskip-closing-pair 'always
+          sp-hybrid-kill-entire-symbol nil)
     (sp-use-paredit-bindings)
     (sp-pair "{" nil
              :post-handlers '(("||\n[i]" "RET")))
@@ -292,6 +294,20 @@
 
 ;; (use-package multiple-cursors
 ;;   :ensure t)
+
+(use-package ledger-mode
+  :mode (("\\.ledger\\'" . ledger-mode)
+         ("\\.beancount\\'" . ledger-mode)
+         ("\\.journal\\'" . ledger-mode))
+  :hook ((ledger-mode . (lambda ()
+                          (setq-local tab-always-indent 'complete))))
+  :config
+  (setq ledger-highlight-xact-under-point nil
+        ledger-post-amount-alignment-column 60))
+
+(use-package pollen-mode
+  :mode (("\\.pp'" . pollen-mode)
+         ("\\.pm'" . pollen-mode)))
 
 (use-package org
   :config
@@ -361,13 +377,26 @@
 ;;   ;; use normal isearch
 ;;   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
 
-;; (use-package markdown-mode
-;;   :ensure t
-;;   :commands (markdown-mode gfm-mode)
-;;   :mode (("README\\.md'" . gfm-mode)
-;;          ("\\.md\\'" . markdown-mode))
-;;   :init (setq markdown-header-scaling t)
-;;   :config (setq markdown-asymmetric-header t))
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode))
+  :init (setq markdown-header-scaling t
+              markdown-header-scaling-values '(1.8 1.6 1.4 1.1 1.0 1.0))
+    :config (setq markdown-asymmetric-header t))
+
+(use-package racket-mode
+  :commands racket-mode
+  :bind (:map racket-mode-map
+              ("[" . racket-smart-open-bracket)
+              :map racket-repl-mode-map
+              ("[" . racket-smart-open-bracket))
+  :config
+  (progn
+    (add-hook 'racket-mode-hook #'racket-unicode-input-method-enable)
+    (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable))
+  (setq racket-smart-open-bracket-enable t))
 
 ;; (use-package deft
 ;;   :ensure t
@@ -376,7 +405,7 @@
 ;;   :config (setq deft-directory "~/Dropbox/org"
 ;;                 deft-extensions '("org")))
 
-(setq explicit-shell-file-name "/usr/local/bin/fish")
+(setq explicit-shell-file-name "/usr/local/bin/zsh")
 
 ;; (use-package ibuffer
 ;;   :commands ibuffer
@@ -402,9 +431,9 @@
 
 
 
-;; (require 'rtj-hydras)
+(require 'rtj-hydras)
 
-;; (require 'rtj-ui)
+(require 'rtj-ui)
 
 ;; (require 'rtj-company)
 ;; (require 'rtj-projectile)
@@ -412,13 +441,9 @@
 ;; (load-theme 'tsdh-light t)
 
 (progn
-  (load-theme 'doom-one t)
-  (doom-themes-org-config)
+  (load-theme 'doom-vibrant t)
   (setq doom-themes-enable-bold
         doom-themes-enable-italic))
-;; (setq doom-themes-enable-bold)
-;;       doom-themes-enable-italic)
-;; (doom-themes-org-config)
                                     
 ;; (use-package helm
 ;;   :ensure t
@@ -445,8 +470,9 @@
   :hook (after-init . doom-modeline-mode)
   :config (setq doom-modeline-height 20))
 
-;; (use-package tex
-;;   :ensure auctex)
+(use-package tex
+  :ensure auctex
+  :defer t)
 
 ;; (use-package color-identifiers-mode
 ;;   :ensure t)
@@ -504,4 +530,12 @@
               (setq gc-cons-threshold 16777216
                     gc-cons-percentage 0.1))))
 
+(global-set-key (kbd "C-x 2") (lambda ()
+                                (interactive)
+                                (split-window-below)
+                                (other-window 1)))
 
+(global-set-key (kbd "C-x 3") (lambda ()
+                                (interactive)
+                                (split-window-right)
+                                (other-window 1)))
