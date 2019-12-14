@@ -2,7 +2,7 @@
       gc-cons-percentage 0.6)
 ;; (set-face-attribute 'default nil :font "Go Mono 14")
 ;;(set-face-attribute 'default nil :font "Inconsolata 18")
-(set-face-attribute 'default nil :family "Menlo" :height 120)
+(set-face-attribute 'default nil :family "PragmataPro" :height 120)
 ;; (set-default-font Anka//Coder 14")
 
 (setq default-directory (getenv "HOME"))
@@ -11,9 +11,9 @@
   (setq mac-command-modifier 'meta
         mac-option-modifier  'super)
   (add-to-list 'default-frame-alist
-               '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist
-               '(ns-appearance . dark)))
+               '(ns-transparent-titlebar . t)))
+  ;; (add-to-list 'default-frame-alist
+  ;;              '(ns-appearance . dark)))
 
 (when (eq window-system 'mac)
   (mac-auto-operator-composition-mode t))
@@ -231,7 +231,7 @@
 (require 'rtj-clojure)
 ;; (require 'rtj-elixir)
 ;; (require 'rtj-fish)
-;; (require 'rtj-go)
+(require 'rtj-go)
 (require 'rtj-haskell)
 ;; (require 'rtj-lisp)
 ;; (require 'rtj-lua)
@@ -441,7 +441,7 @@
 ;; (load-theme 'tsdh-light t)
 
 (progn
-  (load-theme 'doom-vibrant t)
+  (load-theme 'doom-solarized-light t)
   (setq doom-themes-enable-bold
         doom-themes-enable-italic))
                                     

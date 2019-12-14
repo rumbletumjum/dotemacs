@@ -4,8 +4,8 @@
 
 (use-package intero
   :ensure t
-  :defer t)
-;;  :hook (haskell-mode . intero-mode))
+  :defer t
+  :hook (haskell-mode . intero-mode))
 
 (use-package hindent
   :ensure t)
