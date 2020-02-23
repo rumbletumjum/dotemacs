@@ -2,7 +2,7 @@
       gc-cons-percentage 0.6)
 ;; (set-face-attribute 'default nil :font "Go Mono 14")
 ;;(set-face-attribute 'default nil :font "Inconsolata 18")
-(set-face-attribute 'default nil :family "PragmataPro" :height 120)
+(set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular  :height 100)
 ;; (set-default-font Anka//Coder 14")
 
 (setq default-directory (getenv "HOME"))
@@ -228,24 +228,7 @@
          ("C-c f" . magit-grep)))
 
 ;; Lang
-(require 'rtj-clojure)
-;; (require 'rtj-elixir)
-;; (require 'rtj-fish)
-(require 'rtj-go)
-(require 'rtj-haskell)
-;; (require 'rtj-lisp)
-;; (require 'rtj-lua)
-;; (require 'rtj-ocaml)
-;; (require 'rtj-racket)
-(require 'rtj-rust)
-(require 'rtj-scala)
-;; (require 'rtj-sml)
-
-;; (use-package js2-mode
-;;   :ensure t
-;;   :mode "\\.js\\'"
-;;   :config
-;;   (setq js2-strict-missing-semi-warning nil))
+(require 'rtj-proglang)
 
 (use-package smartparens
   :ensure t
