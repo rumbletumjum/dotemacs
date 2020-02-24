@@ -1,9 +1,6 @@
 (setq gc-cons-threshold (* 50 1000 1000)
       gc-cons-percentage 0.6)
-;; (set-face-attribute 'default nil :font "Go Mono 14")
-;;(set-face-attribute 'default nil :font "Inconsolata 18")
-(set-face-attribute 'default nil :family "PragmataPro" :height 120)
-;; (set-default-font Anka//Coder 14")
+(set-face-attribute 'default nil :family "PragmataPro Mono" :height 120)
 
 (setq default-directory (getenv "HOME"))
 
@@ -232,13 +229,13 @@
 ;; (require 'rtj-elixir)
 ;; (require 'rtj-fish)
 (require 'rtj-go)
-(require 'rtj-haskell)
+;; (require 'rtj-haskell)
 ;; (require 'rtj-lisp)
 ;; (require 'rtj-lua)
 ;; (require 'rtj-ocaml)
 ;; (require 'rtj-racket)
 (require 'rtj-rust)
-(require 'rtj-scala)
+;; (require 'rtj-scala)
 ;; (require 'rtj-sml)
 
 ;; (use-package js2-mode
@@ -384,7 +381,7 @@
          ("\\.md\\'" . markdown-mode))
   :init (setq markdown-header-scaling t
               markdown-header-scaling-values '(1.8 1.6 1.4 1.1 1.0 1.0))
-    :config (setq markdown-asymmetric-header t))
+  :config (setq markdown-asymmetric-header t))
 
 (use-package racket-mode
   :commands racket-mode
@@ -429,10 +426,7 @@
 ;;                                      (name . "^\\*scratch\\*$")
 ;;                                      (name . "^\\*Messages\\*$")))))))))
 
-
-
 (require 'rtj-hydras)
-
 (require 'rtj-ui)
 
 ;; (require 'rtj-company)
@@ -440,10 +434,10 @@
 
 ;; (load-theme 'tsdh-light t)
 
-(progn
-  (load-theme 'doom-solarized-light t)
-  (setq doom-themes-enable-bold
-        doom-themes-enable-italic))
+(load-theme 'eink t)
+;; (setq tao-theme-use-sepia nil)
+  ;; (setq doom-themes-enable-bold
+  ;;       doom-themes-enable-italic))
                                     
 ;; (use-package helm
 ;;   :ensure t
@@ -539,3 +533,7 @@
                                 (interactive)
                                 (split-window-right)
                                 (other-window 1)))
+
+;; (set-face-attribute 'default nil :font "Go Mono 14")
+;; (set-face-attribute 'default nil :font "Inconsolata 18")
+;; (set-default-font Anka//Coder 14")
