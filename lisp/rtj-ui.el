@@ -95,5 +95,4 @@
 ;;                               'help-echo (format "Major-mode: `%s`" major-mode)
 ;;                               'face `(:height 1.2 :family ,(all-the-icons-icon-family-for-buffer)))))))
 
-
 (provide 'rtj-ui)
