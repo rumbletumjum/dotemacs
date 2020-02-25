@@ -47,6 +47,7 @@
 (use-package majapahit-theme :ensure t :defer t)
 (use-package material-theme :ensure t :defer t)
 (use-package minimal-theme :ensure t :defer t)
+(use-package monotropic-theme :ensure t :defer t)
 (use-package nord-theme :ensure t :defer t)
 (use-package nordless-theme :ensure t :defer t)
 (use-package plan9-theme :ensure t :defer t)
