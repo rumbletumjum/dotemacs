@@ -2,7 +2,12 @@
       gc-cons-percentage 0.6)
 ;; (set-face-attribute 'default nil :font "Go Mono 14")
 ;;(set-face-attribute 'default nil :font "Inconsolata 18")
-(set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular  :height 100)
+(cond
+ ((string-equal system-type "darwin")
+  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular  :height 120))
+ ((string-equal system-type "gnu/linux")
+  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular  :height 100)))
+
 ;; (set-default-font Anka//Coder 14")
 
 (setq default-directory (getenv "HOME"))
