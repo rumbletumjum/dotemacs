@@ -59,7 +59,6 @@
 
 (require 'rtj-themes)
 (require 'rtj-proglang)
-(require 'rtj-hydras)
 (require 'rtj-ui)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -277,6 +276,8 @@
 
 (global-set-key (kbd "M-[") 'previous-buffer)
 (global-set-key (kbd "M-]") 'next-buffer)
+
+(require 'rtj-hydras)
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
