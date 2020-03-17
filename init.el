@@ -220,7 +220,11 @@
 
 (use-package org
   :config
-  (setq org-startup-indented t))
+  (setq org-startup-indented t)
+  (setq rtj/org-agenda-directory "~/Desktop/")
+  (setq org-capture-templates
+        `(("i" "inbox" entry (file ,(concat rtj/org-agenda-directory "inbox.org"))
+           "* TODO %?"))))
 
 (use-package org-bullets
   :ensure t
